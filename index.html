@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometry Summer Review — Tutoring Guide</title>
+<style>
+  :root{
+    --bg:#f6f7fb;
+    --card:#ffffff;
+    --ink:#1f2333;
+    --muted:#667085;
+    --primary:#4338ca;
+    --primary-dark:#312a8f;
+    --primary-soft:#eef0fd;
+    --accent:#d97706;
+    --accent-soft:#fef3e2;
+    --border:#e6e8f0;
+    --good:#15803d;
+    --good-soft:#ecfdf3;
+    --radius:14px;
+    --shadow:0 1px 3px rgba(20,20,50,.06), 0 8px 24px rgba(20,20,50,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14151f;
+      --card:#1c1e2b;
+      --ink:#eceef5;
+      --muted:#9aa0b4;
+      --primary:#8b85f2;
+      --primary-dark:#a29cf7;
+      --primary-soft:#242542;
+      --accent:#f0a94e;
+      --accent-soft:#3a2c17;
+      --border:#2d2f42;
+      --good:#4ade80;
+      --good-soft:#122a1c;
+      --shadow:0 1px 3px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+  }
+  a{color:var(--primary);}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:40;
+    display:flex; align-items:center; gap:.75rem;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:.7rem 1rem;
+  }
+  .topbar h1{
+    font-size:1rem; margin:0; font-weight:700; letter-spacing:.2px;
+  }
+  .topbar .sub{ color:var(--muted); font-size:.8rem; }
+  .menu-btn{
+    display:none;
+    background:var(--primary-soft); color:var(--primary);
+    border:none; border-radius:10px; width:38px;height:38px;
+    font-size:1.1rem; cursor:pointer;
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    display:grid;
+    grid-template-columns:270px 1fr;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .sidebar{
+    position:sticky; top:53px;
+    align-self:start;
+    height:calc(100vh - 53px);
+    overflow-y:auto;
+    padding:1.1rem .9rem 2rem;
+    border-right:1px solid var(--border);
+  }
+  .progress-wrap{
+    background:var(--card); border:1px solid var(--border);
+    border-radius:12px; padding:.7rem .8rem; margin-bottom:1rem;
+  }
+  .progress-wrap .label{ font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem;}
+  .progress-track{ height:8px; border-radius:6px; background:var(--border); overflow:hidden;}
+  .progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--primary),var(--accent)); transition:width .3s ease;}
+  .progress-count{ font-size:.72rem; color:var(--muted); margin-top:.35rem;}
+
+  .navlist{ list-style:none; margin:0; padding:0; }
+  .navlist .group-label{
+    font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--muted); margin:1.1rem 0 .4rem .5rem;
+  }
+  .navlist a{
+    display:flex; align-items:center; gap:.5rem;
+    text-decoration:none; color:var(--ink);
+    padding:.5rem .55rem; border-radius:9px;
+    font-size:.88rem;
+  }
+  .navlist a:hover{ background:var(--primary-soft); }
+  .navlist a.active{ background:var(--primary-soft); color:var(--primary); font-weight:600;}
+  .navlist .num{
+    flex:0 0 auto; width:20px;height:20px;border-radius:6px;
+    background:var(--border); color:var(--muted);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.68rem; font-weight:700;
+  }
+  .navlist a.active .num{ background:var(--primary); color:#fff; }
+  .navlist .check{ margin-left:auto; color:var(--good); font-size:.85rem; opacity:0; }
+  .navlist a.done .check{ opacity:1; }
+
+  main{ padding:1.5rem 1.6rem 5rem; min-width:0; }
+
+  /* ---------- Section chrome ---------- */
+  section.topic{ scroll-margin-top:70px; padding-bottom:2.6rem; border-bottom:1px dashed var(--border); margin-bottom:2.6rem;}
+  section.topic:last-of-type{ border-bottom:none; }
+  .topic-head{ display:flex; align-items:flex-start; gap:.8rem; margin-bottom:.3rem;}
+  .topic-badge{
+    flex:0 0 auto; width:38px;height:38px; border-radius:10px;
+    background:var(--primary); color:#fff; font-weight:800;
+    display:flex; align-items:center;justify-content:center; font-size:1rem;
+  }
+  .topic-head h2{ margin:.1rem 0 0; font-size:1.35rem; }
+  .goals{ color:var(--muted); font-size:.88rem; margin:.2rem 0 1.1rem 0; }
+  .goals li{ margin-bottom:.15rem; }
+
+  .card{
+    background:var(--card); border:1px solid var(--border);
+    border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:1rem 1.1rem; margin-bottom:1rem;
+  }
+  .formula-box{
+    background:var(--primary-soft); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1rem 1.2rem; margin-bottom:1.1rem;
+  }
+  .formula-box .ftitle{ font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--primary); font-weight:700; margin-bottom:.6rem;}
+  .formula-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.6rem .9rem; }
+  .formula-item{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:.55rem .75rem; }
+  .formula-item .fname{ font-size:.75rem; color:var(--muted); margin-bottom:.15rem;}
+  .formula-item .fmath{ font-size:1.05rem; font-weight:600; }
+  .key-note{ font-size:.82rem; color:var(--muted); margin-top:.7rem; }
+
+  .example{
+    border:1px solid var(--border); border-left:4px solid var(--accent);
+    border-radius:10px; padding:.85rem 1rem; margin-bottom:.9rem;
+    background:var(--card);
+  }
+  .example .etag{
+    display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--accent); background:var(--accent-soft);
+    border-radius:6px; padding:.15rem .5rem; margin-bottom:.5rem;
+  }
+  .example .prompt{ font-weight:600; margin-bottom:.55rem; }
+  .step{ display:flex; gap:.6rem; margin:.35rem 0; align-items:flex-start; }
+  .step .sn{
+    flex:0 0 auto; width:20px;height:20px; border-radius:50%;
+    background:var(--border); color:var(--ink); font-size:.68rem; font-weight:700;
+    display:flex; align-items:center;justify-content:center; margin-top:.15rem;
+  }
+  .step .stext{ font-size:.92rem; }
+  .step .math{ display:block; margin-top:.15rem; font-size:1rem; }
+  .answer-line{
+    margin-top:.6rem; padding-top:.55rem; border-top:1px dashed var(--border);
+    font-weight:700; color:var(--good);
+  }
+
+  .practice-head{ font-weight:700; margin:.2rem 0 .7rem; font-size:.95rem; }
+  .practice-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:.7rem; }
+  .problem{
+    border:1px solid var(--border); border-radius:12px; padding:.75rem .85rem;
+    background:var(--card);
+  }
+  .problem .pn{ font-size:.7rem; color:var(--muted); font-weight:700; margin-bottom:.3rem;}
+  .problem .pq{ margin-bottom:.5rem; }
+  .problem details{ font-size:.88rem; }
+  .problem summary{
+    cursor:pointer; color:var(--primary); font-weight:600; font-size:.82rem;
+    list-style:none; display:inline-flex; align-items:center; gap:.3rem;
+  }
+  .problem summary::-webkit-details-marker{ display:none; }
+  .problem summary::before{ content:"▸"; font-size:.7rem; transition:transform .15s; }
+  .problem details[open] summary::before{ transform:rotate(90deg); }
+  .problem .solution{ margin-top:.5rem; padding-top:.5rem; border-top:1px dashed var(--border); }
+  .problem .solution .final{ font-weight:700; color:var(--good); }
+
+  .frac{ display:inline-flex; flex-direction:column; text-align:center; vertical-align:middle; margin:0 .12em; font-size:.92em; line-height:1.05;}
+  .frac .num{ border-bottom:1.4px solid currentColor; padding:0 .18em;}
+  .frac .den{ padding:0 .18em;}
+
+  .metric-chart{ display:flex; flex-wrap:wrap; gap:.4rem; align-items:flex-end; margin:.8rem 0; }
+  .metric-chart .box{
+    background:var(--card); border:1.5px solid var(--primary); border-radius:8px;
+    padding:.5rem .55rem; font-size:.78rem; text-align:center; min-width:74px;
+  }
+  .metric-chart .box.base{ background:var(--primary); color:#fff; font-weight:700; }
+  .metric-chart .box b{ display:block; font-size:.85rem; }
+
+  .mnemonic{
+    display:flex; gap:.4rem; flex-wrap:wrap; margin:.6rem 0 0;
+  }
+  .mnemonic span{
+    background:var(--accent-soft); color:var(--accent); border-radius:8px;
+    padding:.25rem .55rem; font-size:.78rem; font-weight:700;
+  }
+
+  .callout{
+    border-radius:10px; padding:.7rem .85rem; font-size:.85rem;
+    background:var(--good-soft); color:var(--good); border:1px solid var(--border);
+    margin:.8rem 0;
+  }
+  .note{
+    border-radius:10px; padding:.7rem .85rem; font-size:.85rem;
+    background:var(--accent-soft); color:#92400e; border:1px solid var(--border);
+    margin:.8rem 0;
+  }
+  @media (prefers-color-scheme: dark){ .note{ color:var(--accent);} }
+
+  .complete-row{
+    display:flex; align-items:center; gap:.6rem; margin-top:1.2rem;
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:.6rem .8rem; font-size:.85rem;
+  }
+  .complete-row input{ width:17px;height:17px; }
+
+  svg.diagram{ max-width:100%; height:auto; }
+
+  table.ref-table{ width:100%; border-collapse:collapse; font-size:.85rem; margin-bottom:1.2rem;}
+  table.ref-table th, table.ref-table td{ border:1px solid var(--border); padding:.45rem .6rem; text-align:left; }
+  table.ref-table th{ background:var(--primary-soft); font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--primary); }
+
+  footer{ text-align:center; color:var(--muted); font-size:.78rem; padding:2rem 1rem 3rem; }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 860px){
+    .layout{ grid-template-columns:1fr; }
+    .menu-btn{ display:inline-flex; align-items:center; justify-content:center; }
+    .sidebar{
+      position:fixed; left:0; top:53px; width:78%; max-width:300px;
+      background:var(--bg); z-index:50; box-shadow:var(--shadow);
+      transform:translateX(-105%); transition:transform .2s ease;
+    }
+    .sidebar.open{ transform:translateX(0); }
+    main{ padding:1.2rem 1rem 4rem; }
+    .formula-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  <div>
+    <h1>Geometry Summer Review</h1>
+    <div class="sub">Tutoring guide for incoming Honors Geometry</div>
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <div class="progress-wrap">
+      <div class="label">Your progress</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-count" id="progressCount">0 of 9 sections complete</div>
+    </div>
+    <ul class="navlist" id="navlist">
+      <li><a href="#home"><span class="num">–</span> Overview</a></li>
+      <li class="group-label">Topics</li>
+      <li><a href="#sec1" data-sec="sec1"><span class="num">1</span> Unit Conversion <span class="check">✓</span></a></li>
+      <li><a href="#sec2" data-sec="sec2"><span class="num">2</span> Area &amp; Perimeter <span class="check">✓</span></a></li>
+      <li><a href="#sec3" data-sec="sec3"><span class="num">3</span> Volume <span class="check">✓</span></a></li>
+      <li><a href="#sec4" data-sec="sec4"><span class="num">4</span> Slope <span class="check">✓</span></a></li>
+      <li><a href="#sec5" data-sec="sec5"><span class="num">5</span> Equation of a Line <span class="check">✓</span></a></li>
+      <li><a href="#sec6" data-sec="sec6"><span class="num">6</span> Radicals <span class="check">✓</span></a></li>
+      <li><a href="#sec7" data-sec="sec7"><span class="num">7</span> Pythagorean Theorem <span class="check">✓</span></a></li>
+      <li><a href="#sec8" data-sec="sec8"><span class="num">8</span> Factoring <span class="check">✓</span></a></li>
+      <li><a href="#sec9" data-sec="sec9"><span class="num">9</span> Solving Quadratics <span class="check">✓</span></a></li>
+      <li class="group-label">Reference</li>
+      <li><a href="#formulas"><span class="num">#</span> Formula Sheet</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ===================== HOME ===================== -->
+    <section class="topic" id="home">
+      <h2 style="font-size:1.5rem;margin-bottom:.3rem;">Welcome 👋</h2>
+      <p style="color:var(--muted);max-width:640px;">
+        This guide follows the same 9 sections as the WPHS Math Department Geometry
+        Summer Review packet: <strong>Unit Conversion, Area &amp; Perimeter, Volume, Slope,
+        Equation of a Line, Radicals, Pythagorean Theorem, Factoring,</strong> and
+        <strong>Solving Quadratic Equations</strong>. These are the Algebra 1 / pre-requisite
+        skills that Honors Geometry assumes you already have down cold.
+      </p>
+      <div class="card">
+        <strong>How to use this with your niece:</strong>
+        <ul style="margin:.5rem 0 0; padding-left:1.2rem; color:var(--muted); font-size:.92rem;">
+          <li>Each section has: what it is → the formula(s) → a worked example with every step shown → practice problems with hidden answers.</li>
+          <li>Have her try the practice problems <em>first</em>, then click <strong>Show solution</strong> to check her work and see where it went wrong.</li>
+          <li>Click <strong>Mark section complete</strong> at the bottom of a topic once she's comfortable — the sidebar tracks progress across sessions (saved right in this browser).</li>
+          <li>The <strong>Formula Sheet</strong> page collects every formula in one place — good for a quick warm-up drill or last-minute review.</li>
+        </ul>
+      </div>
+      <div class="note">
+        Note: this guide covers the topics and worked examples from the review packet page range you shared.
+        Sections 8–9 (Factoring, Quadratics) and the packet's own answer key live in the packet's "2 of 2" file,
+        which wasn't included — so those two sections use fresh, clearly-explained examples in the same style
+        rather than the packet's exact numbers.
+      </div>
+    </section>
+
+    <!-- ===================== SECTION 1 ===================== -->
+    <section class="topic" id="sec1">
+      <div class="topic-head">
+        <div class="topic-badge">1</div>
+        <h2>Unit Conversion</h2>
+      </div>
+      <ul class="goals">
+        <li>Convert measurements within the metric system</li>
+      </ul>
+
+      <div class="formula-box">
+        <div class="ftitle">The metric staircase</div>
+        <p style="margin:.2rem 0 .3rem;font-size:.9rem;">Every metric unit sits on this "staircase." Moving <strong>right</strong> = smaller units (multiply). Moving <strong>left</strong> = bigger units (divide). Each step is a factor of 10.</p>
+        <div class="metric-chart">
+          <div class="box"><b>Kilo</b>×1000</div>
+          <div class="box"><b>Hecto</b>×100</div>
+          <div class="box"><b>Deka</b>×10</div>
+          <div class="box base"><b>BASE</b>(m, g, L)</div>
+          <div class="box"><b>Deci</b>×0.1</div>
+          <div class="box"><b>Centi</b>×0.01</div>
+          <div class="box"><b>Milli</b>×0.001</div>
+        </div>
+        <div class="mnemonic">
+          <span>King</span><span>Henry</span><span>Died</span><span>By</span><span>Drinking</span><span>Chocolate</span><span>Milk</span>
+        </div>
+        <p class="key-note">Kilo–Hecto–Deka–<u>base</u>–Deci–Centi–Milli. Count the steps between your starting unit and target unit, then move the decimal that many places (right = bigger number, left = smaller number).</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">Convert 2.3 kilograms to grams.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Grams is the <strong>base</strong> unit. Kilo is 3 steps to the left of base.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Going from kilo → base is moving <strong>right</strong> 3 steps, so move the decimal point 3 places right.</div></div>
+        <div class="step"><div class="sn">3</div><div class="stext">Fill empty spots with zeros: 2.3 → 23 → 230 → 2300.</div></div>
+        <div class="answer-line">2.3 kg = 2300 g</div>
+      </div>
+
+      <div class="practice-head">Practice — convert each measurement</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1</div><div class="pq">45 cm = ____ mm</div>
+          <details><summary>Show solution</summary><div class="solution">Centi → milli is 1 step right. 45.0 → 450.<div class="final">450 mm</div></div></details></div>
+        <div class="problem"><div class="pn">2</div><div class="pq">3.6 kg = ____ g</div>
+          <details><summary>Show solution</summary><div class="solution">Kilo → base is 3 steps right. 3.6 → 3600.<div class="final">3600 g</div></div></details></div>
+        <div class="problem"><div class="pn">3</div><div class="pq">0.056 m = ____ cm</div>
+          <details><summary>Show solution</summary><div class="solution">Base → centi is 2 steps right. 0.056 → 5.6.<div class="final">5.6 cm</div></div></details></div>
+        <div class="problem"><div class="pn">4</div><div class="pq">720 mg = ____ g</div>
+          <details><summary>Show solution</summary><div class="solution">Milli → base is 3 steps left. 720 → 0.72.<div class="final">0.72 g</div></div></details></div>
+        <div class="problem"><div class="pn">5</div><div class="pq">2.5 km = ____ m</div>
+          <details><summary>Show solution</summary><div class="solution">Kilo → base is 3 steps right. 2.5 → 2500.<div class="final">2500 m</div></div></details></div>
+        <div class="problem"><div class="pn">6</div><div class="pq">8300 mm = ____ m</div>
+          <details><summary>Show solution</summary><div class="solution">Milli → base is 3 steps left. 8300 → 8.3.<div class="final">8.3 m</div></div></details></div>
+        <div class="problem"><div class="pn">7</div><div class="pq">0.004 km = ____ cm</div>
+          <details><summary>Show solution</summary><div class="solution">Kilo → centi is 5 steps right. 0.004 → 400.<div class="final">400 cm</div></div></details></div>
+        <div class="problem"><div class="pn">8</div><div class="pq">91 g = ____ mg</div>
+          <details><summary>Show solution</summary><div class="solution">Base → milli is 3 steps right. 91 → 91000.<div class="final">91,000 mg</div></div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec1" class="doneBox"> <label>Mark "Unit Conversion" complete</label></div>
+    </section>
+
+    <!-- ===================== SECTION 2 ===================== -->
+    <section class="topic" id="sec2">
+      <div class="topic-head">
+        <div class="topic-badge">2</div>
+        <h2>Area &amp; Perimeter</h2>
+      </div>
+      <ul class="goals">
+        <li>Perimeter = distance <em>around</em> a shape. Area = space <em>inside</em> a shape (always in square units).</li>
+        <li>Base and height are always perpendicular (they form a right angle).</li>
+      </ul>
+
+      <div class="formula-box">
+        <div class="ftitle">Formulas</div>
+        <div class="formula-grid">
+          <div class="formula-item"><div class="fname">Triangle — Area</div><div class="fmath">A = <span class="frac"><span class="num">1</span><span class="den">2</span></span>bh</div></div>
+          <div class="formula-item"><div class="fname">Rectangle / Square / Parallelogram — Area</div><div class="fmath">A = bh</div></div>
+          <div class="formula-item"><div class="fname">Circle — Area</div><div class="fmath">A = πr²</div></div>
+          <div class="formula-item"><div class="fname">Circle — Circumference</div><div class="fmath">C = πd or 2πr</div></div>
+        </div>
+        <p class="key-note">b = base, h = height, r = radius, d = diameter. If your calculator has no π key, use π ≈ 3.14.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 1</span>
+        <div class="prompt">A parallelogram has two sides of 6 in, two sides of 10 in, and a height of 5 in (perpendicular to the 10 in side).</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Perimeter: add all four sides.</div><span class="math">P = 6 + 6 + 10 + 10 = 32 in</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Area: identify base and height — b = 10 in, h = 5 in.</div><span class="math">A = bh = 10 × 5 = 50 in²</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 2</span>
+        <div class="prompt">A triangle has an area of 44.5 cm² and a height of 7.8 cm. Find the base.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Plug into the triangle area formula.</div><span class="math">44.5 = <span class="frac"><span class="num">1</span><span class="den">2</span></span>(b)(7.8)</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Multiply both sides by 2, then divide by 7.8.</div><span class="math">89 ÷ 7.8 = b</span></div>
+        <div class="answer-line">b ≈ 11.4 cm</div>
+      </div>
+
+      <div class="practice-head">Practice — find area and perimeter (or circumference)</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1 · Rectangle</div><div class="pq">length = 9 cm, width = 4 cm</div>
+          <details><summary>Show solution</summary><div class="solution">P = 2(9+4) = 26 cm<br>A = 9 × 4 = 36 cm²<div class="final">P = 26 cm, A = 36 cm²</div></div></details></div>
+        <div class="problem"><div class="pn">2 · Square</div><div class="pq">side = 6.5 in</div>
+          <details><summary>Show solution</summary><div class="solution">P = 4 × 6.5 = 26 in<br>A = 6.5² = 42.25 in²<div class="final">P = 26 in, A = 42.25 in²</div></div></details></div>
+        <div class="problem"><div class="pn">3 · Parallelogram</div><div class="pq">base = 8 m, slant side = 5 m, height = 4.5 m</div>
+          <details><summary>Show solution</summary><div class="solution">P = 2(8+5) = 26 m<br>A = 8 × 4.5 = 36 m²<div class="final">P = 26 m, A = 36 m²</div></div></details></div>
+        <div class="problem"><div class="pn">4 · Triangle</div><div class="pq">sides = 6.5 ft, 7.8 ft, base = 10 ft, height = 6 ft</div>
+          <details><summary>Show solution</summary><div class="solution">P = 6.5+7.8+10 = 24.3 ft<br>A = ½ × 10 × 6 = 30 ft²<div class="final">P = 24.3 ft, A = 30 ft²</div></div></details></div>
+        <div class="problem"><div class="pn">5 · Circle</div><div class="pq">radius = 5 cm</div>
+          <details><summary>Show solution</summary><div class="solution">C = 2π(5) ≈ 31.4 cm<br>A = π(5)² ≈ 78.5 cm²<div class="final">C ≈ 31.4 cm, A ≈ 78.5 cm²</div></div></details></div>
+        <div class="problem"><div class="pn">6 · Circle</div><div class="pq">diameter = 18 in</div>
+          <details><summary>Show solution</summary><div class="solution">r = 9 in. C = π(18) ≈ 56.5 in<br>A = π(9)² ≈ 254.3 in²<div class="final">C ≈ 56.5 in, A ≈ 254.3 in²</div></div></details></div>
+        <div class="problem"><div class="pn">7 · Missing side</div><div class="pq">Triangle area = 36 in², height = 8 in. Find b.</div>
+          <details><summary>Show solution</summary><div class="solution">36 = ½(b)(8) → 36 = 4b<div class="final">b = 9 in</div></div></details></div>
+        <div class="problem"><div class="pn">8 · Missing side</div><div class="pq">Rectangle area = 52.8 m², one side = 6 m. Find the other side.</div>
+          <details><summary>Show solution</summary><div class="solution">52.8 = 6 × w<div class="final">w = 8.8 m</div></div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec2" class="doneBox"> <label>Mark "Area &amp; Perimeter" complete</label></div>
+    </section>
+
+    <!-- ===================== SECTION 3 ===================== -->
+    <section class="topic" id="sec3">
+      <div class="topic-head">
+        <div class="topic-badge">3</div>
+        <h2>Volume</h2>
+      </div>
+      <ul class="goals">
+        <li>Volume = space <em>inside</em> a 3-D figure (always cubic units)</li>
+        <li>Find volume of a prism, cylinder, sphere, and cone</li>
+      </ul>
+
+      <div class="formula-box">
+        <div class="ftitle">Formulas</div>
+        <div class="formula-grid">
+          <div class="formula-item"><div class="fname">General Prism</div><div class="fmath">V = Bh <span style="color:var(--muted);font-weight:400;">(B = area of the base)</span></div></div>
+          <div class="formula-item"><div class="fname">Cylinder</div><div class="fmath">V = πr²h</div></div>
+          <div class="formula-item"><div class="fname">Sphere</div><div class="fmath">V = <span class="frac"><span class="num">4</span><span class="den">3</span></span>πr³</div></div>
+          <div class="formula-item"><div class="fname">Cone</div><div class="fmath">V = <span class="frac"><span class="num">1</span><span class="den">3</span></span>πr²h</div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 1</span>
+        <div class="prompt">A rectangular prism has length 12 cm, width 4 cm, height 5 cm.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Volume of a prism = (area of base) × height = (length × width) × height.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Plug in and solve.</div><span class="math">V = (12 × 4) × 5 = 240 cm³</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 2</span>
+        <div class="prompt">A cone has radius 3 cm and height 11 cm. Round to the nearest hundredth.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Use the cone formula.</div><span class="math">V = <span class="frac"><span class="num">1</span><span class="den">3</span></span>πr²h</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Plug in r = 3, h = 11.</div><span class="math">V = (1/3) × π × 3² × 11 = 103.67 cm³</span></div>
+      </div>
+
+      <div class="practice-head">Practice — find the volume (round to the nearest hundredth)</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1 · Prism</div><div class="pq">l = 8 cm, w = 3 cm, h = 5 cm</div>
+          <details><summary>Show solution</summary><div class="solution">V = 8 × 3 × 5<div class="final">V = 120 cm³</div></div></details></div>
+        <div class="problem"><div class="pn">2 · Cube</div><div class="pq">side = 4 in</div>
+          <details><summary>Show solution</summary><div class="solution">V = 4 × 4 × 4<div class="final">V = 64 in³</div></div></details></div>
+        <div class="problem"><div class="pn">3 · Cylinder</div><div class="pq">r = 3 m, h = 10 m</div>
+          <details><summary>Show solution</summary><div class="solution">V = π(3)²(10) = π(90)<div class="final">V ≈ 282.60 m³</div></div></details></div>
+        <div class="problem"><div class="pn">4 · Cylinder</div><div class="pq">diameter = 8 ft, h = 6 ft</div>
+          <details><summary>Show solution</summary><div class="solution">r = 4 ft. V = π(4)²(6) = π(96)<div class="final">V ≈ 301.44 ft³</div></div></details></div>
+        <div class="problem"><div class="pn">5 · Sphere</div><div class="pq">r = 6 cm</div>
+          <details><summary>Show solution</summary><div class="solution">V = (4/3)π(6)³ = (4/3)π(216)<div class="final">V ≈ 904.32 cm³</div></div></details></div>
+        <div class="problem"><div class="pn">6 · Sphere</div><div class="pq">diameter = 10 in</div>
+          <details><summary>Show solution</summary><div class="solution">r = 5 in. V = (4/3)π(5)³ = (4/3)π(125)<div class="final">V ≈ 523.33 in³</div></div></details></div>
+        <div class="problem"><div class="pn">7 · Cone</div><div class="pq">r = 3 ft, h = 7 ft</div>
+          <details><summary>Show solution</summary><div class="solution">V = (1/3)π(3)²(7) = (1/3)π(63)<div class="final">V ≈ 65.97 ft³</div></div></details></div>
+        <div class="problem"><div class="pn">8 · Cone</div><div class="pq">diameter = 6 cm, h = 9 cm</div>
+          <details><summary>Show solution</summary><div class="solution">r = 3 cm. V = (1/3)π(3)²(9) = (1/3)π(81)<div class="final">V ≈ 84.82 cm³</div></div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec3" class="doneBox"> <label>Mark "Volume" complete</label></div>
+    </section>
+
+    <!-- ===================== SECTION 4 ===================== -->
+    <section class="topic" id="sec4">
+      <div class="topic-head">
+        <div class="topic-badge">4</div>
+        <h2>Slope</h2>
+      </div>
+      <ul class="goals">
+        <li>Find slope given two coordinate points</li>
+        <li>Find slope given a graph of two points</li>
+      </ul>
+
+      <div class="formula-box">
+        <div class="ftitle">Formula (memorize this — it's not on the Regents reference sheet!)</div>
+        <p style="font-size:1.1rem;font-weight:600;margin:.3rem 0;">
+          Slope = <span class="frac"><span class="num">rise</span><span class="den">run</span></span> = <span class="frac"><span class="num">y₂ − y₁</span><span class="den">x₂ − x₁</span></span>
+        </p>
+        <p class="key-note">Given two points (x₁, y₁) and (x₂, y₂), subtract the y's on top and the x's on the bottom — just keep the order consistent.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 1</span>
+        <div class="prompt">Find the slope of the line through (6, 2) and (−4, 8).</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Plug into the slope formula.</div><span class="math">m = (8 − 2) / (−4 − 6) = 6 / −10</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Reduce the fraction.</div><span class="math">m = −3/5</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 2 — reading a graph</span>
+        <div class="prompt">Find the slope of the line below.</div>
+        <svg class="diagram" viewBox="0 0 260 220" width="260" height="220">
+          <line x1="10" y1="110" x2="250" y2="110" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <line x1="130" y1="10" x2="130" y2="210" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          <g stroke="currentColor" opacity=".15">
+            <line x1="10" y1="10" x2="10" y2="210"/><line x1="50" y1="10" x2="50" y2="210"/><line x1="90" y1="10" x2="90" y2="210"/>
+            <line x1="170" y1="10" x2="170" y2="210"/><line x1="210" y1="10" x2="210" y2="210"/><line x1="250" y1="10" x2="250" y2="210"/>
+            <line x1="10" y1="30" x2="250" y2="30"/><line x1="10" y1="70" x2="250" y2="70"/>
+            <line x1="10" y1="150" x2="250" y2="150"/><line x1="10" y1="190" x2="250" y2="190"/>
+          </g>
+          <line x1="10" y1="190" x2="250" y2="30" stroke="var(--primary)" stroke-width="2.5"/>
+          <circle cx="10" cy="190" r="4" fill="var(--primary)"/>
+          <circle cx="250" cy="30" r="4" fill="var(--primary)"/>
+          <text x="4" y="205" font-size="10" fill="currentColor">(−3, −2)</text>
+          <text x="205" y="24" font-size="10" fill="currentColor">(3, 4)</text>
+        </svg>
+        <div class="step"><div class="sn">1</div><div class="stext">Start at one point. Count boxes up/down to the next point for <em>rise</em> (up = positive, down = negative).</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Count boxes left/right for <em>run</em> (right = positive, left = negative).</div></div>
+        <div class="step"><div class="sn">3</div><div class="stext">From (−3,−2) to (3,4): rise = 6, run = 6.</div><span class="math">m = 6/6 = 1</span></div>
+      </div>
+
+      <div class="practice-head">Practice — find the slope. Simplify all answers.</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1</div><div class="pq">(2, 3) and (5, 9)</div>
+          <details><summary>Show solution</summary><div class="solution">m = (9−3)/(5−2) = 6/3<div class="final">m = 2</div></div></details></div>
+        <div class="problem"><div class="pn">2</div><div class="pq">(−1, 4) and (3, −4)</div>
+          <details><summary>Show solution</summary><div class="solution">m = (−4−4)/(3−(−1)) = −8/4<div class="final">m = −2</div></div></details></div>
+        <div class="problem"><div class="pn">3</div><div class="pq">(0, −5) and (4, 3)</div>
+          <details><summary>Show solution</summary><div class="solution">m = (3−(−5))/(4−0) = 8/4<div class="final">m = 2</div></div></details></div>
+        <div class="problem"><div class="pn">4</div><div class="pq">(−3, −3) and (−3, 5)</div>
+          <details><summary>Show solution</summary><div class="solution">Same x-value → vertical line → division by 0.<div class="final">slope is undefined</div></div></details></div>
+        <div class="problem"><div class="pn">5</div><div class="pq">(6, 2) and (−2, 2)</div>
+          <details><summary>Show solution</summary><div class="solution">Same y-value → horizontal line.<div class="final">m = 0</div></div></details></div>
+        <div class="problem"><div class="pn">6</div><div class="pq">(−4, 7) and (2, −2)</div>
+          <details><summary>Show solution</summary><div class="solution">m = (−2−7)/(2−(−4)) = −9/6<div class="final">m = −3/2</div></div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec4" class="doneBox"> <label>Mark "Slope" complete</label></div>
+    </section>
+
+    <!-- ===================== SECTION 5 ===================== -->
+    <section class="topic" id="sec5">
+      <div class="topic-head">
+        <div class="topic-badge">5</div>
+        <h2>Equation of a Line</h2>
+      </div>
+      <ul class="goals">
+        <li>Write the equation of a line in slope-intercept form</li>
+        <li>Write the equation of a line in point-slope form</li>
+      </ul>
+
+      <div class="formula-box">
+        <div class="ftitle">Slope-Intercept Form</div>
+        <p style="font-size:1.2rem;font-weight:700;margin:.3rem 0;">y = mx + b</p>
+        <p class="key-note">m = slope, b = y-intercept (where the line crosses the y-axis).</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 1</span>
+        <div class="prompt">Write the equation of the line with slope −2/3 and y-intercept −6.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Plug slope into m and y-intercept into b.</div><span class="math">y = −(2/3)x − 6</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 2</span>
+        <div class="prompt">Write the equation of the line with slope 1/2 that passes through (2, 3).</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Plug the slope into m, and the point into x and y, then solve for b.</div><span class="math">3 = (1/2)(2) + b → 3 = 1 + b → b = 2</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Plug m and b back into slope-intercept form.</div><span class="math">y = (1/2)x + 2</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 3 — rearranging into slope-intercept form</span>
+        <div class="prompt">Write −2y + 8 = 7x in slope-intercept form.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Subtract 8 from both sides.</div><span class="math">−2y = 7x − 8</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Divide everything by −2.</div><span class="math">y = −(7/2)x + 4</span></div>
+      </div>
+
+      <div class="formula-box">
+        <div class="ftitle">Point-Slope Form</div>
+        <p style="font-size:1.2rem;font-weight:700;margin:.3rem 0;">y − y₁ = m(x − x₁)</p>
+        <p class="key-note">Comes straight from the slope formula. Handy when you're given a slope and one point, or two points and no y-intercept.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 4</span>
+        <div class="prompt">Find the equation of the line with slope −3 through the point (4, −10).</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Plug the slope into m and the point into x₁, y₁.</div><span class="math">y − (−10) = −3(x − 4) → y + 10 = −3(x − 4)</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 5</span>
+        <div class="prompt">Find the equation of the line through (0, 1) and (3, −3).</div>
+        <div class="step"><div class="sn">1</div><div class="stext">First find the slope.</div><span class="math">m = (−3 − 1)/(3 − 0) = −4/3</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Pick either point and plug into point-slope form.</div><span class="math">y − 1 = −(4/3)(x − 0)</span></div>
+      </div>
+
+      <div class="practice-head">Practice</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1 · slope-intercept</div><div class="pq">slope = 3, y-intercept = −2</div>
+          <details><summary>Show solution</summary><div class="final">y = 3x − 2</div></details></div>
+        <div class="problem"><div class="pn">2 · slope-intercept</div><div class="pq">slope = −1/4, y-intercept = 5</div>
+          <details><summary>Show solution</summary><div class="final">y = −(1/4)x + 5</div></details></div>
+        <div class="problem"><div class="pn">3 · slope + point</div><div class="pq">slope = 2, through (1, 4)</div>
+          <details><summary>Show solution</summary><div class="solution">4 = 2(1)+b → b = 2<div class="final">y = 2x + 2</div></div></details></div>
+        <div class="problem"><div class="pn">4 · slope + point</div><div class="pq">slope = −3/5, through (5, −4)</div>
+          <details><summary>Show solution</summary><div class="solution">−4 = −3/5(5)+b → −4 = −3+b → b=−1<div class="final">y = −(3/5)x − 1</div></div></details></div>
+        <div class="problem"><div class="pn">5 · rearrange</div><div class="pq">3x + y = 7</div>
+          <details><summary>Show solution</summary><div class="final">y = −3x + 7</div></details></div>
+        <div class="problem"><div class="pn">6 · rearrange</div><div class="pq">4x − 2y = 10</div>
+          <details><summary>Show solution</summary><div class="solution">−2y = −4x + 10</div><div class="final">y = 2x − 5</div></details></div>
+        <div class="problem"><div class="pn">7 · point-slope</div><div class="pq">through (3, −2), slope = 4</div>
+          <details><summary>Show solution</summary><div class="final">y + 2 = 4(x − 3)</div></details></div>
+        <div class="problem"><div class="pn">8 · point-slope</div><div class="pq">through (−1, 5), slope = −2/3</div>
+          <details><summary>Show solution</summary><div class="final">y − 5 = −(2/3)(x + 1)</div></details></div>
+        <div class="problem"><div class="pn">9 · two points</div><div class="pq">through (1, 2) and (4, 11)</div>
+          <details><summary>Show solution</summary><div class="solution">m = (11−2)/(4−1) = 3. Using (1,2): y − 2 = 3(x − 1)<div class="final">y = 3x − 1</div></div></details></div>
+        <div class="problem"><div class="pn">10 · two points</div><div class="pq">through (−2, 6) and (2, −2)</div>
+          <details><summary>Show solution</summary><div class="solution">m = (−2−6)/(2−(−2)) = −2. Using (−2,6): y − 6 = −2(x + 2)<div class="final">y = −2x + 2</div></div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec5" class="doneBox"> <label>Mark "Equation of a Line" complete</label></div>
+    </section>
+
+    <!-- ===================== SECTION 6 ===================== -->
+    <section class="topic" id="sec6">
+      <div class="topic-head">
+        <div class="topic-badge">6</div>
+        <h2>Radicals</h2>
+      </div>
+      <ul class="goals">
+        <li>Simplify radicals</li>
+        <li>Multiply radicals</li>
+        <li>Add and subtract radicals</li>
+      </ul>
+
+      <div class="card">
+        <strong>Perfect squares to know cold:</strong>
+        <p style="margin:.4rem 0 0;font-size:.95rem;">1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, ...</p>
+      </div>
+
+      <div class="formula-box">
+        <div class="ftitle">Steps to simplify a radical</div>
+        <ol style="margin:.3rem 0 0;padding-left:1.2rem;font-size:.9rem;">
+          <li>Is the number under the root a perfect square? If yes — take the root, done.</li>
+          <li>If not, is it <em>divisible</em> by a perfect square? Pull out the largest one you can find and simplify that piece.</li>
+          <li>If it's not divisible by any perfect square, it's already in simplest form.</li>
+        </ol>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 1</span>
+        <div class="prompt">Simplify √80</div>
+        <div class="step"><div class="sn">1</div><div class="stext">80 isn't a perfect square, but it's divisible by the perfect square 16.</div><span class="math">√80 = √(16 · 5)</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Take the root of the perfect square piece; leave the rest under the radical.</div><span class="math">= 4√5</span></div>
+      </div>
+
+      <div class="formula-box">
+        <div class="ftitle">Steps to multiply radicals</div>
+        <ol style="margin:.3rem 0 0;padding-left:1.2rem;font-size:.9rem;">
+          <li>Multiply the coefficients (numbers outside the root). No visible coefficient means it's 1.</li>
+          <li>Multiply the radicands (numbers inside the root).</li>
+          <li>Simplify the result.</li>
+        </ol>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 2</span>
+        <div class="prompt">Multiply 2√8 · 5√6</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Multiply coefficients: 2 × 5 = 10.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Multiply radicands: 8 × 6 = 48.</div><span class="math">10√48</span></div>
+        <div class="step"><div class="sn">3</div><div class="stext">Simplify √48 = √(16·3) = 4√3, then multiply by the coefficient.</div><span class="math">10 · 4√3 = 40√3</span></div>
+      </div>
+
+      <div class="formula-box">
+        <div class="ftitle">Steps to add / subtract radicals</div>
+        <ol style="margin:.3rem 0 0;padding-left:1.2rem;font-size:.9rem;">
+          <li>If the radicands match, add/subtract the coefficients (like combining like terms).</li>
+          <li>If they don't match, simplify each radical first — they might match after simplifying.</li>
+        </ol>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example 3</span>
+        <div class="prompt">Simplify 3√20 + 6√5 − √15</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Simplify √20 = √(4·5) = 2√5, so 3√20 = 6√5.</div><span class="math">6√5 + 6√5 − √15</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Combine the matching radicands (√5 and √5). √15 stays separate — it doesn't match.</div><span class="math">= 12√5 − √15</span></div>
+      </div>
+
+      <div class="practice-head">Practice</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1 · Simplify</div><div class="pq">√18</div>
+          <details><summary>Show solution</summary><div class="final">3√2</div></details></div>
+        <div class="problem"><div class="pn">2 · Simplify</div><div class="pq">√45</div>
+          <details><summary>Show solution</summary><div class="final">3√5</div></details></div>
+        <div class="problem"><div class="pn">3 · Simplify</div><div class="pq">√72</div>
+          <details><summary>Show solution</summary><div class="final">6√2</div></details></div>
+        <div class="problem"><div class="pn">4 · Simplify</div><div class="pq">√98</div>
+          <details><summary>Show solution</summary><div class="final">7√2</div></details></div>
+        <div class="problem"><div class="pn">5 · Multiply</div><div class="pq">3√2 · 4√5</div>
+          <details><summary>Show solution</summary><div class="final">12√10</div></details></div>
+        <div class="problem"><div class="pn">6 · Multiply</div><div class="pq">2√6 · 3√6</div>
+          <details><summary>Show solution</summary><div class="solution">coefficients: 2×3=6, radicands: √6·√6=6<div class="final">36</div></div></details></div>
+        <div class="problem"><div class="pn">7 · Multiply</div><div class="pq">5√3 · 2√12</div>
+          <details><summary>Show solution</summary><div class="solution">10√36 = 10 × 6<div class="final">60</div></div></details></div>
+        <div class="problem"><div class="pn">8 · Add/Subtract</div><div class="pq">4√3 + 2√3</div>
+          <details><summary>Show solution</summary><div class="final">6√3</div></details></div>
+        <div class="problem"><div class="pn">9 · Add/Subtract</div><div class="pq">5√2 − √2</div>
+          <details><summary>Show solution</summary><div class="final">4√2</div></details></div>
+        <div class="problem"><div class="pn">10 · Add/Subtract</div><div class="pq">2√20 + 3√5</div>
+          <details><summary>Show solution</summary><div class="solution">2√20 = 4√5, so 4√5 + 3√5</div><div class="final">7√5</div></details></div>
+        <div class="problem"><div class="pn">11 · Add/Subtract</div><div class="pq">√8 + √32</div>
+          <details><summary>Show solution</summary><div class="solution">√8 = 2√2, √32 = 4√2</div><div class="final">6√2</div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec6" class="doneBox"> <label>Mark "Radicals" complete</label></div>
+    </section>
+
+    <!-- ===================== SECTION 7 ===================== -->
+    <section class="topic" id="sec7">
+      <div class="topic-head">
+        <div class="topic-badge">7</div>
+        <h2>Pythagorean Theorem</h2>
+      </div>
+      <ul class="goals">
+        <li>Use the Pythagorean theorem to find a missing side of a <strong>right</strong> triangle</li>
+      </ul>
+
+      <div class="formula-box">
+        <div class="ftitle">Formula</div>
+        <svg class="diagram" viewBox="0 0 220 140" width="220" height="140" style="margin-bottom:.5rem;">
+          <polygon points="30,20 30,110 190,110" fill="none" stroke="currentColor" stroke-width="2"/>
+          <rect x="30" y="98" width="12" height="12" fill="none" stroke="currentColor"/>
+          <text x="14" y="70" font-size="13" fill="currentColor">a</text>
+          <text x="105" y="128" font-size="13" fill="currentColor">b</text>
+          <text x="115" y="60" font-size="13" fill="currentColor">c</text>
+        </svg>
+        <p style="font-size:1.2rem;font-weight:700;margin:.2rem 0;">a² + b² = c²</p>
+        <p class="key-note">a and b are the legs of the triangle; c is always the hypotenuse (the side opposite the right angle — the longest side).</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">A right triangle has legs x and 12 yd, and hypotenuse 15 yd. Find x.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Set up the equation.</div><span class="math">x² + 12² = 15²</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Simplify the squares.</div><span class="math">x² + 144 = 225</span></div>
+        <div class="step"><div class="sn">3</div><div class="stext">Subtract 144 from both sides.</div><span class="math">x² = 81</span></div>
+        <div class="step"><div class="sn">4</div><div class="stext">Take the square root of both sides.</div><span class="math">x = 9</span></div>
+      </div>
+
+      <div class="practice-head">Practice — find the missing side</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1</div><div class="pq">legs 6 and 8 — find the hypotenuse</div>
+          <details><summary>Show solution</summary><div class="solution">c² = 6²+8² = 36+64 = 100</div><div class="final">c = 10</div></details></div>
+        <div class="problem"><div class="pn">2</div><div class="pq">leg 9, hypotenuse 15 — find the other leg</div>
+          <details><summary>Show solution</summary><div class="solution">b² = 15²−9² = 225−81 = 144</div><div class="final">b = 12</div></details></div>
+        <div class="problem"><div class="pn">3</div><div class="pq">legs 5 and 12 — find the hypotenuse</div>
+          <details><summary>Show solution</summary><div class="solution">c² = 25+144 = 169</div><div class="final">c = 13</div></details></div>
+        <div class="problem"><div class="pn">4</div><div class="pq">leg 8, hypotenuse 17 — find the other leg</div>
+          <details><summary>Show solution</summary><div class="solution">b² = 289−64 = 225</div><div class="final">b = 15</div></details></div>
+        <div class="problem"><div class="pn">5</div><div class="pq">legs 20 and 21 — find the hypotenuse</div>
+          <details><summary>Show solution</summary><div class="solution">c² = 400+441 = 841</div><div class="final">c = 29</div></details></div>
+        <div class="problem"><div class="pn">6 · Word problem</div><div class="pq">A 13 ft ladder leans against a wall, with its base 5 ft from the wall. How high up the wall does it reach?</div>
+          <details><summary>Show solution</summary><div class="solution">height² = 13²−5² = 169−25 = 144</div><div class="final">height = 12 ft</div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec7" class="doneBox"> <label>Mark "Pythagorean Theorem" complete</label></div>
+    </section>
+
+    <!-- ===================== SECTION 8 ===================== -->
+    <section class="topic" id="sec8">
+      <div class="topic-head">
+        <div class="topic-badge">8</div>
+        <h2>Factoring</h2>
+      </div>
+      <ul class="goals">
+        <li>Factor by greatest common factor (GCF)</li>
+        <li>Factor a difference of perfect squares</li>
+        <li>Factor a quadratic trinomial</li>
+      </ul>
+      <div class="note">The packet's own examples for this section are in "2 of 2," which wasn't shared — the examples below cover the same three skills listed in the packet's table of contents.</div>
+
+      <div class="example">
+        <span class="etag">Method 1 — Greatest Common Factor</span>
+        <div class="prompt">Factor 12x² + 18x</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Find the largest number/variable that divides every term: GCF = 6x.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Pull it out front, divide each term by it.</div><span class="math">6x(2x + 3)</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Method 2 — Difference of Squares</span>
+        <div class="prompt">Factor x² − 49</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Recognize the pattern: a² − b² = (a − b)(a + b). Here a = x, b = 7.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Write the two factors.</div><span class="math">(x − 7)(x + 7)</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Method 3 — Trinomial (a = 1)</span>
+        <div class="prompt">Factor x² + 7x + 12</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Find two numbers that <strong>multiply</strong> to 12 and <strong>add</strong> to 7 → 3 and 4.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Write as two binomials.</div><span class="math">(x + 3)(x + 4)</span></div>
+      </div>
+
+      <div class="practice-head">Practice</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1 · GCF</div><div class="pq">8x² + 20x</div>
+          <details><summary>Show solution</summary><div class="final">4x(2x + 5)</div></details></div>
+        <div class="problem"><div class="pn">2 · GCF</div><div class="pq">15x³ − 9x²</div>
+          <details><summary>Show solution</summary><div class="final">3x²(5x − 3)</div></details></div>
+        <div class="problem"><div class="pn">3 · Difference of squares</div><div class="pq">x² − 25</div>
+          <details><summary>Show solution</summary><div class="final">(x − 5)(x + 5)</div></details></div>
+        <div class="problem"><div class="pn">4 · Difference of squares</div><div class="pq">4x² − 9</div>
+          <details><summary>Show solution</summary><div class="final">(2x − 3)(2x + 3)</div></details></div>
+        <div class="problem"><div class="pn">5 · Trinomial</div><div class="pq">x² + 9x + 20</div>
+          <details><summary>Show solution</summary><div class="solution">two numbers that multiply to 20, add to 9 → 4 and 5</div><div class="final">(x + 4)(x + 5)</div></details></div>
+        <div class="problem"><div class="pn">6 · Trinomial</div><div class="pq">x² − 2x − 15</div>
+          <details><summary>Show solution</summary><div class="solution">multiply to −15, add to −2 → −5 and 3</div><div class="final">(x − 5)(x + 3)</div></details></div>
+        <div class="problem"><div class="pn">7 · Trinomial</div><div class="pq">x² − 11x + 30</div>
+          <details><summary>Show solution</summary><div class="solution">multiply to 30, add to −11 → −5 and −6</div><div class="final">(x − 5)(x − 6)</div></details></div>
+        <div class="problem"><div class="pn">8 · GCF + Diff of squares</div><div class="pq">2x² − 18</div>
+          <details><summary>Show solution</summary><div class="solution">Pull out GCF of 2 first: 2(x² − 9), then factor the difference of squares.</div><div class="final">2(x − 3)(x + 3)</div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec8" class="doneBox"> <label>Mark "Factoring" complete</label></div>
+    </section>
+
+    <!-- ===================== SECTION 9 ===================== -->
+    <section class="topic" id="sec9">
+      <div class="topic-head">
+        <div class="topic-badge">9</div>
+        <h2>Solving Quadratic Equations</h2>
+      </div>
+      <ul class="goals">
+        <li>Solve by factoring</li>
+        <li>Solve by using the quadratic formula</li>
+        <li>Solve by completing the square</li>
+      </ul>
+      <div class="note">As with Factoring, this section's packet examples are in "2 of 2" — the walkthroughs below teach the same three methods listed in the packet.</div>
+
+      <div class="example">
+        <span class="etag">Method 1 — Factoring</span>
+        <div class="prompt">Solve x² + 5x + 6 = 0</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Factor the trinomial (numbers that multiply to 6, add to 5 → 2 and 3).</div><span class="math">(x + 2)(x + 3) = 0</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Zero Product Property: if two things multiply to 0, one of them must be 0.</div><span class="math">x + 2 = 0  or  x + 3 = 0</span></div>
+        <div class="answer-line">x = −2  or  x = −3</div>
+      </div>
+
+      <div class="formula-box">
+        <div class="ftitle">Method 2 — The Quadratic Formula</div>
+        <p style="font-size:1.15rem;font-weight:700;margin:.3rem 0;">x = <span class="frac"><span class="num">−b ± √(b² − 4ac)</span><span class="den">2a</span></span></p>
+        <p class="key-note">Works on <em>any</em> quadratic ax² + bx + c = 0, even ones that don't factor nicely.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">Solve 2x² + 3x − 2 = 0</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Identify a, b, c.</div><span class="math">a = 2, b = 3, c = −2</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Find the discriminant b² − 4ac.</div><span class="math">3² − 4(2)(−2) = 9 + 16 = 25</span></div>
+        <div class="step"><div class="sn">3</div><div class="stext">Plug into the formula.</div><span class="math">x = (−3 ± √25) / 4 = (−3 ± 5) / 4</span></div>
+        <div class="answer-line">x = 1/2  or  x = −2</div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Method 3 — Completing the Square</span>
+        <div class="prompt">Solve x² + 6x + 5 = 0</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Move the constant to the other side.</div><span class="math">x² + 6x = −5</span></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Take half of the x-coefficient, square it, add to both sides. (6/2)² = 9.</div><span class="math">x² + 6x + 9 = 4</span></div>
+        <div class="step"><div class="sn">3</div><div class="stext">The left side is now a perfect square trinomial.</div><span class="math">(x + 3)² = 4</span></div>
+        <div class="step"><div class="sn">4</div><div class="stext">Square root both sides — don't forget ±.</div><span class="math">x + 3 = ±2</span></div>
+        <div class="answer-line">x = −1  or  x = −5</div>
+      </div>
+
+      <div class="practice-head">Practice</div>
+      <div class="practice-grid">
+        <div class="problem"><div class="pn">1 · Factoring</div><div class="pq">x² − x − 6 = 0</div>
+          <details><summary>Show solution</summary><div class="solution">(x − 3)(x + 2) = 0</div><div class="final">x = 3 or x = −2</div></details></div>
+        <div class="problem"><div class="pn">2 · Factoring</div><div class="pq">x² + 8x + 16 = 0</div>
+          <details><summary>Show solution</summary><div class="solution">(x + 4)² = 0 — a repeated root</div><div class="final">x = −4</div></details></div>
+        <div class="problem"><div class="pn">3 · Quadratic formula</div><div class="pq">x² − 4x − 5 = 0</div>
+          <details><summary>Show solution</summary><div class="solution">disc = 16+20 = 36, √36 = 6. x = (4 ± 6)/2</div><div class="final">x = 5 or x = −1</div></details></div>
+        <div class="problem"><div class="pn">4 · Quadratic formula</div><div class="pq">3x² − 2x − 1 = 0</div>
+          <details><summary>Show solution</summary><div class="solution">disc = 4+12 = 16, √16 = 4. x = (2 ± 4)/6</div><div class="final">x = 1 or x = −1/3</div></details></div>
+        <div class="problem"><div class="pn">5 · Completing the square</div><div class="pq">x² − 8x + 7 = 0</div>
+          <details><summary>Show solution</summary><div class="solution">x²−8x=−7 → +16 both sides → (x−4)²=9 → x−4=±3</div><div class="final">x = 7 or x = 1</div></details></div>
+        <div class="problem"><div class="pn">6 · Completing the square</div><div class="pq">x² + 2x − 8 = 0</div>
+          <details><summary>Show solution</summary><div class="solution">x²+2x=8 → +1 both sides → (x+1)²=9 → x+1=±3</div><div class="final">x = 2 or x = −4</div></details></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="sec9" class="doneBox"> <label>Mark "Solving Quadratics" complete</label></div>
+    </section>
+
+    <!-- ===================== FORMULA SHEET ===================== -->
+    <section class="topic" id="formulas" style="border-bottom:none;">
+      <div class="topic-head">
+        <div class="topic-badge">#</div>
+        <h2>Formula Reference Sheet</h2>
+      </div>
+      <table class="ref-table">
+        <tr><th>Topic</th><th>Formula</th></tr>
+        <tr><td>Metric conversion</td><td>Right = smaller unit (×10 per step) · Left = bigger unit (÷10 per step)</td></tr>
+        <tr><td>Triangle area</td><td>A = ½bh</td></tr>
+        <tr><td>Rectangle / square / parallelogram area</td><td>A = bh</td></tr>
+        <tr><td>Circle area</td><td>A = πr²</td></tr>
+        <tr><td>Circle circumference</td><td>C = πd = 2πr</td></tr>
+        <tr><td>Prism volume</td><td>V = Bh</td></tr>
+        <tr><td>Cylinder volume</td><td>V = πr²h</td></tr>
+        <tr><td>Sphere volume</td><td>V = (4/3)πr³</td></tr>
+        <tr><td>Cone volume</td><td>V = (1/3)πr²h</td></tr>
+        <tr><td>Slope</td><td>m = (y₂ − y₁) / (x₂ − x₁)</td></tr>
+        <tr><td>Slope-intercept form</td><td>y = mx + b</td></tr>
+        <tr><td>Point-slope form</td><td>y − y₁ = m(x − x₁)</td></tr>
+        <tr><td>Pythagorean theorem</td><td>a² + b² = c²  (c = hypotenuse)</td></tr>
+        <tr><td>Difference of squares</td><td>a² − b² = (a − b)(a + b)</td></tr>
+        <tr><td>Quadratic formula</td><td>x = (−b ± √(b² − 4ac)) / 2a</td></tr>
+      </table>
+      <p style="color:var(--muted);font-size:.85rem;">π ≈ 3.14 (or 3.1415) if your calculator has no π key.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>Built for summer geometry prep · based on the WPHS Math Department Geometry Summer Review packet</footer>
+
+<script>
+  // Mobile sidebar toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const sidebar = document.getElementById('sidebar');
+  menuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
+  sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => sidebar.classList.remove('open')));
+
+  // Active link highlighting via IntersectionObserver
+  const navLinks = Array.from(document.querySelectorAll('.navlist a[data-sec], .navlist a[href="#home"], .navlist a[href="#formulas"]'));
+  const sections = Array.from(document.querySelectorAll('main section'));
+  const linkFor = id => document.querySelector('.navlist a[href="#' + id + '"]');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = linkFor(entry.target.id);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  sections.forEach(s => io.observe(s));
+
+  // Progress tracking (localStorage)
+  const SECS = ['sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9'];
+  const STORAGE_KEY = 'geoReviewProgress';
+  function loadProgress(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function saveProgress(p){ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
+  function renderProgress(){
+    const p = loadProgress();
+    const doneCount = SECS.filter(s => p[s]).length;
+    document.getElementById('progressFill').style.width = (doneCount/SECS.length*100) + '%';
+    document.getElementById('progressCount').textContent = doneCount + ' of ' + SECS.length + ' sections complete';
+    SECS.forEach(s => {
+      const link = document.querySelector('.navlist a[data-sec="'+s+'"]');
+      const box = document.querySelector('.doneBox[data-sec="'+s+'"]');
+      if (link) link.classList.toggle('done', !!p[s]);
+      if (box) box.checked = !!p[s];
+    });
+  }
+  document.querySelectorAll('.doneBox').forEach(box => {
+    box.addEventListener('change', () => {
+      const p = loadProgress();
+      p[box.dataset.sec] = box.checked;
+      saveProgress(p);
+      renderProgress();
+    });
+  });
+  renderProgress();
+</script>
+
+</body>
+</html>
