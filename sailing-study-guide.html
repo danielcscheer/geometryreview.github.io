@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sailing Test Review — Study Guide</title>
+<style>
+  :root{
+    --bg:#f4f8fb;
+    --card:#ffffff;
+    --ink:#132a3a;
+    --muted:#5b7184;
+    --primary:#0d6e8c;
+    --primary-dark:#0a5570;
+    --primary-soft:#e3f2f7;
+    --accent:#e0702c;
+    --accent-soft:#fdeee2;
+    --border:#dbe6ec;
+    --good:#1a7f5a;
+    --good-soft:#e7f7f0;
+    --radius:14px;
+    --shadow:0 1px 3px rgba(10,40,60,.06), 0 8px 24px rgba(10,40,60,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b1720;
+      --card:#11212c;
+      --ink:#e7eff4;
+      --muted:#8fa4b3;
+      --primary:#57bfe3;
+      --primary-dark:#7ccfec;
+      --primary-soft:#13303d;
+      --accent:#f0975a;
+      --accent-soft:#3a2415;
+      --border:#223844;
+      --good:#4ad195;
+      --good-soft:#12301f;
+      --shadow:0 1px 3px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+  }
+  a{color:var(--primary);}
+
+  .topbar{
+    position:sticky; top:0; z-index:40;
+    display:flex; align-items:center; gap:.75rem;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:.7rem 1rem;
+  }
+  .topbar h1{ font-size:1rem; margin:0; font-weight:700; letter-spacing:.2px; }
+  .topbar .sub{ color:var(--muted); font-size:.8rem; }
+  .menu-btn{
+    display:none;
+    background:var(--primary-soft); color:var(--primary);
+    border:none; border-radius:10px; width:38px;height:38px;
+    font-size:1.1rem; cursor:pointer;
+  }
+
+  .layout{ display:grid; grid-template-columns:270px 1fr; max-width:1180px; margin:0 auto; }
+  .sidebar{
+    position:sticky; top:53px; align-self:start;
+    height:calc(100vh - 53px); overflow-y:auto;
+    padding:1.1rem .9rem 2rem; border-right:1px solid var(--border);
+  }
+  .progress-wrap{
+    background:var(--card); border:1px solid var(--border);
+    border-radius:12px; padding:.7rem .8rem; margin-bottom:1rem;
+  }
+  .progress-wrap .label{ font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem;}
+  .progress-track{ height:8px; border-radius:6px; background:var(--border); overflow:hidden;}
+  .progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--primary),var(--accent)); transition:width .3s ease;}
+  .progress-count{ font-size:.72rem; color:var(--muted); margin-top:.35rem;}
+
+  .navlist{ list-style:none; margin:0; padding:0; }
+  .navlist .group-label{ font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:1.1rem 0 .4rem .5rem; }
+  .navlist a{ display:flex; align-items:center; gap:.5rem; text-decoration:none; color:var(--ink); padding:.5rem .55rem; border-radius:9px; font-size:.88rem; }
+  .navlist a:hover{ background:var(--primary-soft); }
+  .navlist a.active{ background:var(--primary-soft); color:var(--primary); font-weight:600;}
+  .navlist .num{ flex:0 0 auto; width:20px;height:20px;border-radius:6px; background:var(--border); color:var(--muted); display:flex;align-items:center;justify-content:center; font-size:.68rem; font-weight:700; }
+  .navlist a.active .num{ background:var(--primary); color:#fff; }
+  .navlist .check{ margin-left:auto; color:var(--good); font-size:.85rem; opacity:0; }
+  .navlist a.done .check{ opacity:1; }
+
+  main{ padding:1.5rem 1.6rem 5rem; min-width:0; }
+
+  section.topic{ scroll-margin-top:70px; padding-bottom:2.6rem; border-bottom:1px dashed var(--border); margin-bottom:2.6rem;}
+  section.topic:last-of-type{ border-bottom:none; }
+  .topic-head{ display:flex; align-items:flex-start; gap:.8rem; margin-bottom:.3rem;}
+  .topic-badge{ flex:0 0 auto; width:38px;height:38px; border-radius:10px; background:var(--primary); color:#fff; font-weight:800; display:flex; align-items:center;justify-content:center; font-size:1rem; }
+  .topic-head h2{ margin:.1rem 0 0; font-size:1.35rem; }
+  .goals{ color:var(--muted); font-size:.88rem; margin:.2rem 0 1.1rem 0; }
+  .goals li{ margin-bottom:.15rem; }
+
+  .card{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:1rem 1.1rem; margin-bottom:1rem; }
+  .fact-box{ background:var(--primary-soft); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.2rem; margin-bottom:1.1rem; }
+  .fact-box .ftitle{ font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--primary); font-weight:700; margin-bottom:.6rem;}
+  .fact-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.6rem .9rem; }
+  .fact-item{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:.6rem .8rem; }
+  .fact-item .fname{ font-size:.82rem; font-weight:700; color:var(--ink); margin-bottom:.2rem;}
+  .fact-item .fdesc{ font-size:.82rem; color:var(--muted); }
+  .key-note{ font-size:.82rem; color:var(--muted); margin-top:.7rem; }
+
+  .example{ border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px; padding:.85rem 1rem; margin-bottom:.9rem; background:var(--card); }
+  .example .etag{ display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); border-radius:6px; padding:.15rem .5rem; margin-bottom:.5rem; }
+  .example .prompt{ font-weight:600; margin-bottom:.55rem; }
+  .step{ display:flex; gap:.6rem; margin:.35rem 0; align-items:flex-start; }
+  .step .sn{ flex:0 0 auto; width:20px;height:20px; border-radius:50%; background:var(--border); color:var(--ink); font-size:.68rem; font-weight:700; display:flex; align-items:center;justify-content:center; margin-top:.15rem; }
+  .step .stext{ font-size:.92rem; }
+  .answer-line{ margin-top:.6rem; padding-top:.55rem; border-top:1px dashed var(--border); font-weight:700; color:var(--good); }
+
+  .practice-head{ font-weight:700; margin:.2rem 0 .7rem; font-size:.95rem; }
+  .practice-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:.7rem; }
+  .problem{ border:1px solid var(--border); border-radius:12px; padding:.75rem .85rem; background:var(--card); }
+  .problem .pn{ font-size:.7rem; color:var(--muted); font-weight:700; margin-bottom:.3rem;}
+  .problem .pq{ margin-bottom:.5rem; }
+  .problem details{ font-size:.88rem; }
+  .problem summary{ cursor:pointer; color:var(--primary); font-weight:600; font-size:.82rem; list-style:none; display:inline-flex; align-items:center; gap:.3rem; }
+  .problem summary::-webkit-details-marker{ display:none; }
+  .problem summary::before{ content:"▸"; font-size:.7rem; transition:transform .15s; }
+  .problem details[open] summary::before{ transform:rotate(90deg); }
+  .problem .solution{ margin-top:.5rem; padding-top:.5rem; border-top:1px dashed var(--border); }
+  .problem .solution .final{ font-weight:700; color:var(--good); }
+
+  .diagram-wrap{ text-align:center; margin:.8rem 0 1.1rem; }
+  .diagram-wrap .cap{ font-size:.78rem; color:var(--muted); margin-top:.4rem; }
+  svg.diagram{ max-width:100%; height:auto; background:var(--card); border:1px solid var(--border); border-radius:12px; }
+
+  .mnemonic{ display:flex; gap:.4rem; flex-wrap:wrap; margin:.6rem 0 0; }
+  .mnemonic span{ background:var(--accent-soft); color:var(--accent); border-radius:8px; padding:.25rem .55rem; font-size:.78rem; font-weight:700; }
+
+  .callout{ border-radius:10px; padding:.7rem .85rem; font-size:.85rem; background:var(--good-soft); color:var(--good); border:1px solid var(--border); margin:.8rem 0; }
+  .note{ border-radius:10px; padding:.7rem .85rem; font-size:.85rem; background:var(--accent-soft); color:#92400e; border:1px solid var(--border); margin:.8rem 0; }
+  @media (prefers-color-scheme: dark){ .note{ color:var(--accent);} }
+  .danger{ border-radius:10px; padding:.7rem .85rem; font-size:.85rem; background:#fde8e8; color:#a3282d; border:1px solid var(--border); margin:.8rem 0; }
+  @media (prefers-color-scheme: dark){ .danger{ background:#3a1414; color:#f28b8b; } }
+
+  .complete-row{ display:flex; align-items:center; gap:.6rem; margin-top:1.2rem; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:.6rem .8rem; font-size:.85rem; }
+  .complete-row input{ width:17px;height:17px; }
+
+  table.ref-table{ width:100%; border-collapse:collapse; font-size:.85rem; margin-bottom:1.2rem;}
+  table.ref-table th, table.ref-table td{ border:1px solid var(--border); padding:.45rem .6rem; text-align:left; }
+  table.ref-table th{ background:var(--primary-soft); font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--primary); }
+
+  footer{ text-align:center; color:var(--muted); font-size:.78rem; padding:2rem 1rem 3rem; }
+
+  @media (max-width: 860px){
+    .layout{ grid-template-columns:1fr; }
+    .menu-btn{ display:inline-flex; align-items:center; justify-content:center; }
+    .sidebar{ position:fixed; left:0; top:53px; width:78%; max-width:300px; background:var(--bg); z-index:50; box-shadow:var(--shadow); transform:translateX(-105%); transition:transform .2s ease; }
+    .sidebar.open{ transform:translateX(0); }
+    main{ padding:1.2rem 1rem 4rem; }
+    .fact-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  <div>
+    <h1>⛵ Sailing Test Review</h1>
+    <div class="sub">Study guide for Mr. JJ / SEAS — "What do you need to know for the test?"</div>
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <div class="progress-wrap">
+      <div class="label">Your progress</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-count" id="progressCount">0 of 15 sections complete</div>
+    </div>
+    <ul class="navlist" id="navlist">
+      <li><a href="#home"><span class="num">–</span> Overview</a></li>
+      <li class="group-label">Topics A–O</li>
+      <li><a href="#secA" data-sec="secA"><span class="num">A</span> Parts of a Sail <span class="check">✓</span></a></li>
+      <li><a href="#secB" data-sec="secB"><span class="num">B</span> Parts of the Boat <span class="check">✓</span></a></li>
+      <li><a href="#secC" data-sec="secC"><span class="num">C</span> Types of Boats <span class="check">✓</span></a></li>
+      <li><a href="#secD" data-sec="secD"><span class="num">D</span> Direction <span class="check">✓</span></a></li>
+      <li><a href="#secE" data-sec="secE"><span class="num">E</span> Knots <span class="check">✓</span></a></li>
+      <li><a href="#secF" data-sec="secF"><span class="num">F</span> Points of Sail <span class="check">✓</span></a></li>
+      <li><a href="#secG" data-sec="secG"><span class="num">G</span> Bernoulli's Principle <span class="check">✓</span></a></li>
+      <li><a href="#secH" data-sec="secH"><span class="num">H</span> Movement of Boat <span class="check">✓</span></a></li>
+      <li><a href="#secI" data-sec="secI"><span class="num">I</span> Rules of the Road <span class="check">✓</span></a></li>
+      <li><a href="#secJ" data-sec="secJ"><span class="num">J</span> Mooring &amp; Docking <span class="check">✓</span></a></li>
+      <li><a href="#secK" data-sec="secK"><span class="num">K</span> Understanding the Wind <span class="check">✓</span></a></li>
+      <li><a href="#secL" data-sec="secL"><span class="num">L</span> Crew Overboard <span class="check">✓</span></a></li>
+      <li><a href="#secM" data-sec="secM"><span class="num">M</span> Anchoring <span class="check">✓</span></a></li>
+      <li><a href="#secN" data-sec="secN"><span class="num">N</span> Weather <span class="check">✓</span></a></li>
+      <li><a href="#secO" data-sec="secO"><span class="num">O</span> PFDs <span class="check">✓</span></a></li>
+      <li class="group-label">Reference</li>
+      <li><a href="#glossary"><span class="num">#</span> Glossary</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ===================== HOME ===================== -->
+    <section class="topic" id="home">
+      <h2 style="font-size:1.5rem;margin-bottom:.3rem;">Welcome aboard 👋</h2>
+      <p style="color:var(--muted);max-width:640px;">
+        This guide follows the same 15 sections (A–O) as Mr. JJ's SEAS test review sheet:
+        <strong>Parts of a Sail, Parts of the Boat, Types of Boats, Direction, Knots, Points of Sail,
+        Bernoulli's Principle, Movement of the Boat, Rules of the Road, Mooring &amp; Docking,
+        Understanding the Wind, Crew Overboard, Anchoring, Weather,</strong> and <strong>PFDs</strong>.
+        Every section has a diagram, the key facts, and a worked example to help it click.
+      </p>
+      <div class="note">
+        Diagrams are simplified schematics meant to make the ideas click quickly — not to scale, and not a
+        substitute for on-the-water practice with your instructor.
+      </div>
+    </section>
+
+    <!-- ===================== A. PARTS OF A SAIL ===================== -->
+    <section class="topic" id="secA">
+      <div class="topic-head">
+        <div class="topic-badge">A</div>
+        <h2>Parts of a Sail</h2>
+      </div>
+      <ul class="goals">
+        <li>Name the three edges and three corners of a sail</li>
+        <li>Explain what telltales, battens, and roach do</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 340 260" width="340" height="260">
+          <line x1="60" y1="20" x2="60" y2="230" stroke="currentColor" stroke-width="4" opacity=".55"/>
+          <text x="40" y="130" font-size="10" fill="currentColor" opacity=".7" transform="rotate(-90 40 130)">MAST</text>
+          <path d="M60,20 L60,230 L250,230 C230,160 220,90 60,20 Z" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="45" y="120" font-size="11" fill="var(--primary-dark)" font-weight="700" transform="rotate(-77 45 120)">LUFF</text>
+          <text x="140" y="245" font-size="11" fill="var(--primary-dark)" font-weight="700">FOOT</text>
+          <text x="245" y="130" font-size="11" fill="var(--primary-dark)" font-weight="700" transform="rotate(70 245 130)">LEECH</text>
+          <circle cx="60" cy="20" r="4" fill="var(--accent)"/>
+          <text x="66" y="16" font-size="11" fill="var(--accent)" font-weight="700">HEAD</text>
+          <circle cx="60" cy="230" r="4" fill="var(--accent)"/>
+          <text x="15" y="248" font-size="11" fill="var(--accent)" font-weight="700">TACK</text>
+          <circle cx="250" cy="230" r="4" fill="var(--accent)"/>
+          <text x="252" y="222" font-size="11" fill="var(--accent)" font-weight="700">CLEW</text>
+          <g stroke="var(--muted)" stroke-width="1.5" opacity=".8">
+            <line x1="170" y1="90" x2="200" y2="97"/>
+            <line x1="190" y1="140" x2="222" y2="146"/>
+            <line x1="205" y1="190" x2="240" y2="195"/>
+          </g>
+          <text x="180" y="80" font-size="9" fill="var(--muted)">battens</text>
+          <g stroke="var(--accent)" stroke-width="1.5">
+            <line x1="95" y1="80" x2="105" y2="75"/>
+            <line x1="105" y1="130" x2="118" y2="126"/>
+            <line x1="120" y1="180" x2="135" y2="177"/>
+          </g>
+          <text x="100" y="60" font-size="9" fill="var(--accent)">telltales</text>
+          <path d="M200,97 C215,105 220,120 222,146" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <text x="228" y="115" font-size="9" fill="var(--accent)">roach</text>
+        </svg>
+        <div class="cap">A mainsail: three edges (luff, leech, foot), three corners (head, tack, clew), plus battens, roach, and telltales.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Edges &amp; corners</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Luff</div><div class="fdesc">Forward edge — runs along the mast.</div></div>
+          <div class="fact-item"><div class="fname">Leech</div><div class="fdesc">Trailing (back) edge — where airflow exits.</div></div>
+          <div class="fact-item"><div class="fname">Foot</div><div class="fdesc">Bottom edge — runs along the boom.</div></div>
+          <div class="fact-item"><div class="fname">Head</div><div class="fdesc">Top corner — hoisted by the halyard.</div></div>
+          <div class="fact-item"><div class="fname">Tack</div><div class="fdesc">Bottom-forward corner — fixed at the mast/boom.</div></div>
+          <div class="fact-item"><div class="fname">Clew</div><div class="fdesc">Bottom-aft corner — where the sheet attaches.</div></div>
+        </div>
+        <p class="key-note"><strong>Telltales</strong> are short ribbons on the sail that show airflow — you trim the sail until they stream straight back on both sides. <strong>Battens</strong> are stiff slats in pockets along the leech that support <strong>roach</strong>, the extra sail area that bulges past a straight line from head to clew.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">You glance up and the windward (outside) telltale is streaming straight back, but the leeward (inside) telltale is fluttering and stalling.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">A stalled leeward telltale usually means the sail is trimmed in too far, or you're pointed too close to the wind for the current trim.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Fix it by easing the sheet slightly, or by falling off a few degrees, until both telltales stream evenly.</div></div>
+        <div class="answer-line">Even, straight telltales on both sides = clean, attached airflow = an efficiently trimmed sail.</div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secA" class="doneBox"> <label>Mark "Parts of a Sail" complete</label></div>
+    </section>
+
+    <!-- ===================== B. PARTS OF THE BOAT ===================== -->
+    <section class="topic" id="secB">
+      <div class="topic-head">
+        <div class="topic-badge">B</div>
+        <h2>Parts of the Boat</h2>
+      </div>
+      <ul class="goals">
+        <li>Label the hull, spars, appendages, and steering gear</li>
+        <li>Separate standing rigging (fixed) from running rigging (adjustable)</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 260 320" width="260" height="320">
+          <path d="M130,20 C90,55 70,90 70,170 L70,270 Q70,295 95,295 L165,295 Q190,295 190,270 L190,170 C190,90 170,55 130,20 Z" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="122" y="18" font-size="11" fill="var(--accent)" font-weight="700">BOW</text>
+          <text x="115" y="312" font-size="11" fill="var(--accent)" font-weight="700">STERN</text>
+          <text x="132" y="180" font-size="10" fill="var(--muted)">MIDSHIP</text>
+          <rect x="105" y="215" width="50" height="45" rx="6" fill="var(--card)" stroke="var(--muted)"/>
+          <text x="112" y="240" font-size="9" fill="var(--muted)">cockpit</text>
+          <line x1="70" y1="170" x2="190" y2="170" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="192" y="174" font-size="9" fill="var(--accent)">beam (widest point)</text>
+          <text x="45" y="150" font-size="10" fill="var(--muted)" transform="rotate(-90 45 150)">deck →</text>
+        </svg>
+        <div class="cap">Top-down hull: bow (front), stern (back), midship (center), cockpit, and beam (the boat's width at its widest point).</div>
+      </div>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 300 260" width="300" height="260">
+          <path d="M40,235 Q150,255 260,235 L245,250 Q150,265 55,250 Z" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+          <line x1="150" y1="235" x2="150" y2="30" stroke="currentColor" stroke-width="4"/>
+          <text x="153" y="45" font-size="9" fill="currentColor">mast</text>
+          <circle cx="150" cy="28" r="4" fill="var(--accent)"/>
+          <text x="157" y="24" font-size="9" fill="var(--accent)">masthead fly</text>
+          <line x1="150" y1="95" x2="215" y2="235" stroke="var(--muted)" stroke-width="2"/>
+          <text x="205" y="150" font-size="9" fill="var(--muted)">forestay</text>
+          <line x1="150" y1="60" x2="40" y2="235" stroke="var(--muted)" stroke-width="2"/>
+          <text x="55" y="150" font-size="9" fill="var(--muted)">backstay</text>
+          <line x1="150" y1="80" x2="95" y2="235" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <text x="80" y="200" font-size="9" fill="var(--muted)">shroud</text>
+          <line x1="150" y1="80" x2="205" y2="235" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <line x1="120" y1="105" x2="180" y2="105" stroke="var(--ink)" stroke-width="2.5"/>
+          <text x="182" y="102" font-size="9" fill="var(--ink)">spreaders</text>
+          <line x1="150" y1="120" x2="205" y2="200" stroke="var(--accent)" stroke-width="3"/>
+          <text x="200" y="185" font-size="9" fill="var(--accent)">boom</text>
+        </svg>
+        <div class="cap"><strong>Standing rigging</strong> (fixed wires that hold the mast up): forestay, shrouds, backstay, spreaders.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Full parts list</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Hull</div><div class="fdesc">Stern, cockpit, midship, beam, deck, bow.</div></div>
+          <div class="fact-item"><div class="fname">Spars</div><div class="fdesc">Boom, mast, spar (general term for a pole), masthead fly (wind vane), painter (bow line), bridle (load-spreading line).</div></div>
+          <div class="fact-item"><div class="fname">Underwater foils</div><div class="fdesc">Daggerboard (slides straight down), centerboard (pivots up), keel (fixed, ballasted) — all resist sideways slipping.</div></div>
+          <div class="fact-item"><div class="fname">Steering</div><div class="fdesc">Tiller (the arm you hold), rudder (the underwater blade), pintles (pins on the rudder), gudgeons (sockets on the hull the pintles drop into).</div></div>
+          <div class="fact-item"><div class="fname">Standing rigging</div><div class="fdesc">Forestay, shrouds, backstay, mast, spreaders — fixed, holds the mast up.</div></div>
+          <div class="fact-item"><div class="fname">Running rigging</div><div class="fdesc">Mainsheet, halyard, jib sheet, Cunningham, outhaul, leech line — adjustable, controls sail shape.</div></div>
+        </div>
+        <p class="key-note">Easy test: if you can adjust it while sailing to change sail shape or trim, it's <strong>running</strong> rigging. If it's a fixed wire holding the mast in place, it's <strong>standing</strong> rigging.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">Match the job to the line: "raises the mainsail," "controls how far out the boom swings," "tensions the luff of the mainsail," "tensions the foot along the boom."</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Raises the sail → <strong>halyard</strong>.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Controls boom angle → <strong>mainsheet</strong>.</div></div>
+        <div class="step"><div class="sn">3</div><div class="stext">Tensions the luff → <strong>Cunningham</strong>.</div></div>
+        <div class="step"><div class="sn">4</div><div class="stext">Tensions the foot → <strong>outhaul</strong>.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secB" class="doneBox"> <label>Mark "Parts of the Boat" complete</label></div>
+    </section>
+
+    <!-- ===================== C. TYPES OF BOATS ===================== -->
+    <section class="topic" id="secC">
+      <div class="topic-head">
+        <div class="topic-badge">C</div>
+        <h2>Different Types of Boat</h2>
+      </div>
+      <ul class="goals">
+        <li>Tell a catboat from a sloop</li>
+        <li>Recognize crab claw, Bermuda, lateen, and square rigs</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 320 140" width="320" height="140">
+          <line x1="60" y1="15" x2="60" y2="115" stroke="currentColor" stroke-width="3"/>
+          <path d="M60,15 L60,115 L110,115 Z" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+          <path d="M20,120 Q60,130 100,120 L92,128 Q60,136 28,128 Z" fill="var(--primary-soft)" stroke="var(--primary)"/>
+          <text x="30" y="15" font-size="10" fill="var(--ink)" font-weight="700">Catboat</text>
+          <text x="20" y="138" font-size="8" fill="var(--muted)">1 mast, forward · 1 sail</text>
+
+          <line x1="220" y1="15" x2="220" y2="115" stroke="currentColor" stroke-width="3"/>
+          <path d="M220,15 L220,115 L270,115 Z" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+          <path d="M220,45 L180,115 L220,115 Z" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+          <path d="M180,120 Q235,132 285,120 L277,128 Q235,138 188,128 Z" fill="var(--primary-soft)" stroke="var(--primary)"/>
+          <text x="205" y="15" font-size="10" fill="var(--ink)" font-weight="700">Sloop</text>
+          <text x="188" y="138" font-size="8" fill="var(--muted)">1 mast, midship · main + jib</text>
+        </svg>
+        <div class="cap">Catboat: one mast set well forward, one sail, no jib. Sloop: one mast set further aft, mainsail + jib — the most common recreational rig.</div>
+      </div>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 400 130" width="400" height="130">
+          <g>
+            <line x1="10" y1="30" x2="55" y2="15" stroke="var(--muted)" stroke-width="2"/>
+            <path d="M10,30 Q35,60 20,110" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+            <path d="M55,15 Q40,55 20,110" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+            <text x="0" y="125" font-size="9" fill="var(--ink)" font-weight="700">Crab claw</text>
+          </g>
+          <g transform="translate(100,0)">
+            <line x1="20" y1="10" x2="20" y2="110" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M20,15 L20,108 L62,108 Z" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+            <text x="10" y="125" font-size="9" fill="var(--ink)" font-weight="700">Bermuda</text>
+          </g>
+          <g transform="translate(210,0)">
+            <line x1="30" y1="45" x2="30" y2="112" stroke="currentColor" stroke-width="2"/>
+            <line x1="0" y1="15" x2="65" y2="55" stroke="var(--muted)" stroke-width="2.5"/>
+            <path d="M0,15 L65,55 L30,112 Z" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+            <text x="0" y="125" font-size="9" fill="var(--ink)" font-weight="700">Lateen</text>
+          </g>
+          <g transform="translate(315,0)">
+            <line x1="30" y1="10" x2="30" y2="112" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="0" y1="25" x2="60" y2="25" stroke="var(--muted)" stroke-width="2.5"/>
+            <rect x="4" y="27" width="52" height="34" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+            <line x1="5" y1="65" x2="55" y2="65" stroke="var(--muted)" stroke-width="2.5"/>
+            <rect x="9" y="67" width="42" height="28" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+            <text x="0" y="125" font-size="9" fill="var(--ink)" font-weight="700">Square</text>
+          </g>
+        </svg>
+        <div class="cap">Four historic rig/sail shapes.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Rig types, in a nutshell</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Crab claw</div><div class="fdesc">Two curved spars forming a crescent; ancient Pacific Islander design, surprisingly efficient.</div></div>
+          <div class="fact-item"><div class="fname">Bermuda (Marconi)</div><div class="fdesc">Tall triangular sail; what nearly every modern sailboat uses; best upwind performance.</div></div>
+          <div class="fact-item"><div class="fname">Lateen</div><div class="fdesc">Triangular sail on a long angled yard; classic Mediterranean/Arab dhow rig; better upwind than square rig.</div></div>
+          <div class="fact-item"><div class="fname">Square rig</div><div class="fdesc">Rectangular sails on horizontal yards (tall ships); powerful downwind, poor upwind.</div></div>
+        </div>
+        <p class="key-note">Upwind ability, worst to best: <strong>square &lt; lateen/crab claw &lt; Bermuda.</strong></p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">You see a small dinghy with one mast set near the bow and a single large sail — no headsail. What is it, and how does that compare to a boat with a jib?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">One mast, one sail, no jib = a <strong>catboat</strong>.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">A <strong>sloop</strong> (main + jib) has more sail controls to learn, but the jib helps balance the boat and adds power/pointing ability via the slot effect (see Section K).</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secC" class="doneBox"> <label>Mark "Types of Boats" complete</label></div>
+    </section>
+
+    <!-- ===================== D. DIRECTION ===================== -->
+    <section class="topic" id="secD">
+      <div class="topic-head">
+        <div class="topic-badge">D</div>
+        <h2>Direction</h2>
+      </div>
+      <ul class="goals">
+        <li>Fore/aft, amidships, port/starboard</li>
+        <li>Windward/leeward, heading up/falling off</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 300 260" width="300" height="260">
+          <line x1="150" y1="10" x2="150" y2="60" stroke="var(--accent)" stroke-width="3" marker-end="url(#arrD)"/>
+          <text x="120" y="18" font-size="10" fill="var(--accent)" font-weight="700">WIND</text>
+          <defs><marker id="arrD" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--accent)"/></marker></defs>
+          <path d="M150,70 C110,105 90,140 90,200 L90,235 Q90,250 105,250 L195,250 Q210,250 210,235 L210,200 C210,140 190,105 150,70 Z" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="140" y="65" font-size="10" fill="var(--ink)" font-weight="700">FORE</text>
+          <text x="135" y="245" font-size="10" fill="var(--ink)" font-weight="700">AFT</text>
+          <text x="130" y="160" font-size="9" fill="var(--muted)">amidships</text>
+          <text x="50" y="140" font-size="11" fill="var(--good)" font-weight="700">PORT (left)</text>
+          <text x="225" y="140" font-size="11" fill="#b03030" font-weight="700">STARBOARD (right)</text>
+          <text x="60" y="30" font-size="10" fill="var(--muted)">windward side</text>
+          <text x="150" y="30" font-size="0"></text>
+        </svg>
+        <div class="cap">Fore = toward the bow, aft = toward the stern, amidships = the middle. Facing forward, port is your left, starboard is your right.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Key terms</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Windward</div><div class="fdesc">The side / direction the wind is coming <em>from</em>.</div></div>
+          <div class="fact-item"><div class="fname">Leeward</div><div class="fdesc">The side / direction the wind is blowing <em>toward</em>.</div></div>
+          <div class="fact-item"><div class="fname">Heading up</div><div class="fdesc">Turning the bow closer toward the wind.</div></div>
+          <div class="fact-item"><div class="fname">Falling off</div><div class="fdesc">Turning the bow away from the wind.</div></div>
+        </div>
+        <div class="mnemonic"><span>Port &amp; Left both = 4 letters</span><span>Port wine is red → port light is red</span><span>Starboard light is green</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">You're sailing close-hauled with the wind hitting your left (port) side. A gust hits and the boat starts to heel too much. What do you do with the boat's heading?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Head up slightly (turn toward the wind) to spill some power out of the sails, or ease the sheet.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Since the wind is on your port side, your port side is the <strong>windward</strong> side and your starboard side is <strong>leeward</strong>.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secD" class="doneBox"> <label>Mark "Direction" complete</label></div>
+    </section>
+
+    <!-- ===================== E. KNOTS ===================== -->
+    <section class="topic" id="secE">
+      <div class="topic-head">
+        <div class="topic-badge">E</div>
+        <h2>Knots</h2>
+      </div>
+      <ul class="goals">
+        <li>Know the purpose of a stopper knot, a bowline, and a cleat hitch</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 380 130" width="380" height="130">
+          <g transform="translate(10,10)">
+            <path d="M10,60 C10,20 60,20 60,60 C60,95 15,95 15,60 C15,35 45,35 45,60 C45,80 25,80 25,60" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="45" y1="60" x2="90" y2="60" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
+            <text x="0" y="115" font-size="10" fill="var(--ink)" font-weight="700">Stopper (figure-8)</text>
+          </g>
+          <g transform="translate(140,10)">
+            <circle cx="45" cy="45" r="26" fill="none" stroke="var(--primary)" stroke-width="4"/>
+            <path d="M45,19 C25,19 25,45 45,45" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M20,45 C10,55 10,80 25,90" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
+            <text x="0" y="115" font-size="10" fill="var(--ink)" font-weight="700">Bowline</text>
+          </g>
+          <g transform="translate(260,10)">
+            <rect x="10" y="45" width="60" height="10" fill="var(--muted)"/>
+            <path d="M15,20 L15,90 M65,20 L65,90" stroke="var(--primary)" stroke-width="4" fill="none"/>
+            <path d="M15,30 L65,60 M15,60 L65,30 M15,45 L65,75" stroke="var(--primary)" stroke-width="4" fill="none"/>
+            <text x="0" y="115" font-size="10" fill="var(--ink)" font-weight="700">Cleat hitch</text>
+          </g>
+        </svg>
+        <div class="cap">Schematic loop patterns — practice the real rope moves with your instructor.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">What each knot is for</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Stopper (figure-8)</div><div class="fdesc">Tied at the end of a line so it can't run out through a block or your hand.</div></div>
+          <div class="fact-item"><div class="fname">Bowline</div><div class="fdesc">Makes a fixed loop that won't slip, yet unties easily even after being loaded — "the king of knots."</div></div>
+          <div class="fact-item"><div class="fname">Cleat hitch</div><div class="fdesc">Secures a line to a deck cleat with figure-eight wraps finished by a locking hitch — fast to release under load.</div></div>
+        </div>
+        <div class="mnemonic"><span>Bowline: "the rabbit comes out of the hole, around the tree, and back down the hole"</span></div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">You're coming into the dock and need to secure a line to a piling loop, plus tie the other end to the boat's deck cleat so it can be released quickly.</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Use a <strong>bowline</strong> to form a loop around the piling — it holds firm but won't jam.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Use a <strong>cleat hitch</strong> on the boat end so crew can release it fast if needed.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secE" class="doneBox"> <label>Mark "Knots" complete</label></div>
+    </section>
+
+    <!-- ===================== F. POINTS OF SAIL ===================== -->
+    <section class="topic" id="secF">
+      <div class="topic-head">
+        <div class="topic-badge">F</div>
+        <h2>Points of Sail</h2>
+      </div>
+      <ul class="goals">
+        <li>Identify the no-sail zone and every point of sail around the wind clock</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 320 320" width="320" height="320">
+          <circle cx="160" cy="160" r="130" fill="var(--card)" stroke="var(--border)" stroke-width="1"/>
+          <path d="M160,160 L120,35 A130,130 0 0 0 200,35 Z" fill="#f2b8b8" opacity=".55"/>
+          <path d="M160,160 L200,35 A130,130 0 0 0 268,88 Z" fill="var(--accent-soft)"/>
+          <path d="M160,160 L120,35 A130,130 0 0 1 52,88 Z" fill="var(--accent-soft)"/>
+          <path d="M160,160 L268,88 A130,130 0 0 0 290,160 Z" fill="var(--primary-soft)"/>
+          <path d="M160,160 L52,88 A130,130 0 0 1 30,160 Z" fill="var(--primary-soft)"/>
+          <path d="M160,160 L290,160 A130,130 0 0 0 245,255 Z" fill="#cfe8f5"/>
+          <path d="M160,160 L30,160 A130,130 0 0 1 75,255 Z" fill="#cfe8f5"/>
+          <path d="M160,160 L245,255 A130,130 0 0 0 75,255 Z" fill="#c9f0d8"/>
+          <line x1="160" y1="160" x2="160" y2="30" stroke="var(--accent)" stroke-width="3" marker-end="url(#arrF)"/>
+          <defs><marker id="arrF" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--accent)"/></marker></defs>
+          <text x="140" y="20" font-size="10" fill="var(--accent)" font-weight="700">WIND</text>
+          <text x="160" y="60" font-size="9" text-anchor="middle" fill="#a3282d" font-weight="700">NO SAIL</text>
+          <text x="160" y="72" font-size="9" text-anchor="middle" fill="#a3282d" font-weight="700">ZONE</text>
+          <text x="215" y="70" font-size="9" fill="#8a5010" font-weight="700">close</text>
+          <text x="212" y="82" font-size="9" fill="#8a5010" font-weight="700">hauled</text>
+          <text x="90" y="70" font-size="9" fill="#8a5010" font-weight="700">close</text>
+          <text x="85" y="82" font-size="9" fill="#8a5010" font-weight="700">hauled</text>
+          <text x="245" y="115" font-size="9" fill="var(--primary-dark)" font-weight="700">close reach</text>
+          <text x="50" y="115" font-size="9" fill="var(--primary-dark)" font-weight="700" text-anchor="end">close reach</text>
+          <text x="270" y="165" font-size="9" fill="#2b6f8f" font-weight="700">beam reach</text>
+          <text x="30" y="165" font-size="9" fill="#2b6f8f" font-weight="700" text-anchor="start">beam reach</text>
+          <text x="245" y="215" font-size="9" fill="#1a7f5a" font-weight="700">broad reach</text>
+          <text x="55" y="215" font-size="9" fill="#1a7f5a" font-weight="700" text-anchor="end">broad reach</text>
+          <text x="160" y="245" font-size="10" text-anchor="middle" fill="#0f6a3d" font-weight="700">RUN</text>
+        </svg>
+        <div class="cap">The "wind clock": starting from the no-sail zone at top and rotating either direction — close hauled → close reach → beam reach → broad reach → run.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Points of sail, from closest to the wind to furthest</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">No-sail zone ("in irons")</div><div class="fdesc">~45° cone pointed straight into the wind. Sails luff — no power possible here.</div></div>
+          <div class="fact-item"><div class="fname">Close hauled</div><div class="fdesc">As close to the wind as possible while still full and driving. Zig-zagging upwind on this point of sail is called <strong>beating</strong>.</div></div>
+          <div class="fact-item"><div class="fname">Close reach</div><div class="fdesc">Between close hauled and beam reach.</div></div>
+          <div class="fact-item"><div class="fname">Beam reach</div><div class="fdesc">Wind directly on the side (90°) — usually the fastest, easiest point of sail.</div></div>
+          <div class="fact-item"><div class="fname">Broad reach</div><div class="fdesc">Between beam reach and a run; wind coming from behind at an angle.</div></div>
+          <div class="fact-item"><div class="fname">Run</div><div class="fdesc">Wind directly behind you, sailing straight downwind.</div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">The race mark is directly upwind of you. Why can't you just sail straight at it?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">A course straight upwind sits inside the no-sail zone, where sails just luff.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">You have to zig-zag: sail close hauled on one tack, tack through the wind, sail close hauled on the other tack, and repeat — this is <strong>beating</strong> to the mark.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secF" class="doneBox"> <label>Mark "Points of Sail" complete</label></div>
+    </section>
+
+    <!-- ===================== G. BERNOULLI ===================== -->
+    <section class="topic" id="secG">
+      <div class="topic-head">
+        <div class="topic-badge">G</div>
+        <h2>Bernoulli's Principle</h2>
+      </div>
+      <ul class="goals">
+        <li>Explain how a curved sail generates a sideways/forward force from wind</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 340 200" width="340" height="200">
+          <line x1="10" y1="130" x2="70" y2="130" stroke="var(--ink)" stroke-width="3" marker-end="url(#arrG)"/>
+          <defs><marker id="arrG" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink)"/></marker></defs>
+          <text x="15" y="120" font-size="9" fill="var(--ink)">Wind</text>
+          <path d="M70,130 C120,60 220,55 300,90" fill="none" stroke="var(--primary)" stroke-width="3"/>
+          <path d="M70,130 L300,90" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2,2" opacity=".4"/>
+          <text x="290" y="105" font-size="9" fill="var(--muted)">sail clew →</text>
+          <g stroke="var(--primary-dark)" stroke-width="2" fill="none">
+            <path d="M90,75 C130,55 190,50 260,60" marker-end="url(#arrG2)"/>
+          </g>
+          <defs><marker id="arrG2" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--primary-dark)"/></marker></defs>
+          <text x="120" y="45" font-size="9" fill="var(--primary-dark)">faster air, longer path (leeward side)</text>
+          <ellipse cx="180" cy="35" rx="70" ry="14" fill="none" stroke="var(--primary-dark)" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="140" y="38" font-size="9" fill="var(--primary-dark)" font-weight="700">LOW PRESSURE</text>
+          <g stroke="var(--accent)" stroke-width="2" fill="none">
+            <path d="M85,145 L280,120" marker-end="url(#arrG3)"/>
+          </g>
+          <defs><marker id="arrG3" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--accent)"/></marker></defs>
+          <text x="120" y="175" font-size="9" fill="var(--accent)">slower air, shorter path (windward side)</text>
+          <ellipse cx="180" cy="180" rx="70" ry="14" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="140" y="184" font-size="9" fill="var(--accent)" font-weight="700">HIGH PRESSURE</text>
+          <g stroke="#a3282d" stroke-width="2">
+            <line x1="150" y1="100" x2="150" y2="75" marker-end="url(#arrG4)"/>
+            <line x1="200" y1="90" x2="200" y2="65" marker-end="url(#arrG4)"/>
+          </g>
+          <defs><marker id="arrG4" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#a3282d"/></marker></defs>
+          <text x="205" y="60" font-size="9" fill="#a3282d" font-weight="700">Force (F)</text>
+        </svg>
+        <div class="cap">The sail splits the wind. The outside (leeward) curve is longer, so air travels faster there and pressure drops. Air on the inside (windward) curve is slower and pressure stays higher. The pressure difference pushes the sail toward the low-pressure (leeward) side.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Why it matters</div>
+        <p style="margin:0;font-size:.9rem;">A sail is really a vertical airfoil, like an airplane wing turned on its side. The faster/slower airflow on either side creates a pressure difference, and that difference creates a force that drives the sail (and the boat) toward the low-pressure side. This lift-based force is what lets a boat sail <em>upwind</em> and even faster than the wind on some points of sail — pure "wind pushing the sail like a parachute" can't do that.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">Why can a well-trimmed sailboat sail faster than the true wind speed on a reach, if the wind is what's powering it?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">If sails only worked by wind "pushing" them like a parachute, boat speed could never exceed wind speed.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Because the sail generates lift (Bernoulli's principle) rather than just drag, it can keep producing forward force even as apparent wind speed and angle change with boat speed — allowing speeds that exceed true wind speed on the right points of sail.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secG" class="doneBox"> <label>Mark "Bernoulli's Principle" complete</label></div>
+    </section>
+
+    <!-- ===================== H. MOVEMENT OF BOAT ===================== -->
+    <section class="topic" id="secH">
+      <div class="topic-head">
+        <div class="topic-badge">H</div>
+        <h2>Movement of the Boat</h2>
+      </div>
+      <ul class="goals">
+        <li>Yaw, roll, pitch — and what causes each</li>
+        <li>Weather helm and side slippage</li>
+        <li>How to stop the boat, tack, and jibe</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 340 180" width="340" height="180">
+          <ellipse cx="80" cy="100" rx="55" ry="20" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2"/>
+          <path d="M40,90 A45,25 0 0 1 120,90" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrH)"/>
+          <text x="50" y="55" font-size="9" fill="var(--accent)" font-weight="700">YAW (bow swings L/R)</text>
+          <ellipse cx="200" cy="100" rx="55" ry="20" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2" transform="rotate(18 200 100)"/>
+          <path d="M165,75 A40,20 0 0 1 235,75" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrH)"/>
+          <text x="170" y="60" font-size="9" fill="var(--accent)" font-weight="700">ROLL (heeling)</text>
+          <ellipse cx="290" cy="105" rx="16" ry="35" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2" transform="rotate(70 290 105)"/>
+          <path d="M270,80 A30,18 0 0 1 315,90" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrH)"/>
+          <text x="255" y="55" font-size="9" fill="var(--accent)" font-weight="700">PITCH (bow/stern bob)</text>
+          <defs><marker id="arrH" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--accent)"/></marker></defs>
+        </svg>
+        <div class="cap">Three axes of motion: yaw (rudder/keel), roll (wind on the sail — countered by hiking out), pitch (waves and fore-aft weight — sit near midship).</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Boat motion &amp; balance</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Yaw</div><div class="fdesc">Bow swings left/right — caused by the rudder, motor, keel, etc.</div></div>
+          <div class="fact-item"><div class="fname">Roll</div><div class="fdesc">Boat tips side to side (heeling) — caused by wind pressure on the sail; crew hikes out to balance it.</div></div>
+          <div class="fact-item"><div class="fname">Pitch</div><div class="fdesc">Bow/stern bob up and down — caused by waves and fore-aft weight; sit near midship to minimize it.</div></div>
+          <div class="fact-item"><div class="fname">Weather helm</div><div class="fdesc">The boat's natural tendency to turn its bow into the wind when overpowered. A little is normal (a safety valve); a lot means you should depower.</div></div>
+          <div class="fact-item"><div class="fname">Side slippage (leeway)</div><div class="fdesc">Sideways skid from wind pressure, resisted by the keel/centerboard/daggerboard.</div></div>
+          <div class="fact-item"><div class="fname">Stopping the boat</div><div class="fdesc">Head into the wind or ease sails to the "safety position" — sails luff and lose power.</div></div>
+        </div>
+      </div>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 340 160" width="340" height="160">
+          <line x1="170" y1="10" x2="170" y2="45" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrH2)"/>
+          <defs><marker id="arrH2" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--accent)"/></marker></defs>
+          <text x="145" y="18" font-size="9" fill="var(--accent)" font-weight="700">WIND</text>
+          <path d="M40,90 C55,70 90,60 110,80" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#arrH3)"/>
+          <defs><marker id="arrH3" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--primary)"/></marker></defs>
+          <text x="20" y="105" font-size="8" fill="var(--muted)">start (starboard tack)</text>
+          <path d="M110,80 C140,95 160,105 175,110" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-dasharray="4,3"/>
+          <text x="120" y="130" font-size="8" fill="#a3282d" font-weight="700">through no-sail zone</text>
+          <path d="M175,110 C210,120 260,110 290,90" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#arrH3)"/>
+          <text x="240" y="80" font-size="8" fill="var(--muted)">finish (port tack)</text>
+        </svg>
+        <div class="cap"><strong>Tacking</strong>: turn the bow through the wind. Prepare crew ("ready about") → push the tiller toward the boom → cross through the no-sail zone (brief loss of power) → trim in on the new tack.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Tacking vs. Jibing</div>
+        <table class="ref-table">
+          <tr><th></th><th>Tacking (coming about)</th><th>Jibing (gybing)</th></tr>
+          <tr><td>Bow or stern turns through the wind?</td><td>Bow</td><td>Stern</td></tr>
+          <tr><td>Tiller direction</td><td>Toward the boom</td><td>Away from the boom</td></tr>
+          <tr><td>Power during the turn</td><td>Temporarily lost (sails luff)</td><td>Continuous — boom can swing forcefully</td></tr>
+          <tr><td>Prep step</td><td>"Ready about" — cross through irons</td><td>"Prepare to jibe" — sheet in main first</td></tr>
+          <tr><td>Relative danger</td><td>Lower — gradual, gentle</td><td>Higher — uncontrolled boom swing risk; keep heads down</td></tr>
+        </table>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">You're on starboard tack (wind hitting your right/starboard side, main out to port) and want to turn so the wind hits your left/port side instead — which way do you push the tiller, and what do you call the maneuver if your bow crosses through the wind?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Turning the bow through the wind is <strong>tacking</strong>. You push the tiller toward the boom.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">After the tack, the wind now hits your port side — you're on <strong>port tack</strong>, and by the "port gives way to starboard" rule you'd need to yield to any boat still on starboard tack.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secH" class="doneBox"> <label>Mark "Movement of Boat" complete</label></div>
+    </section>
+
+    <!-- ===================== I. RULES OF THE ROAD ===================== -->
+    <section class="topic" id="secI">
+      <div class="topic-head">
+        <div class="topic-badge">I</div>
+        <h2>The Rules of the Road</h2>
+      </div>
+      <ul class="goals">
+        <li>Stand-on vs. give-way boats</li>
+        <li>Identify who has right of way from a picture</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 320 180" width="320" height="180">
+          <line x1="40" y1="150" x2="150" y2="60" stroke="var(--good)" stroke-width="3" marker-end="url(#arrI)"/>
+          <text x="20" y="165" font-size="9" fill="var(--good)" font-weight="700">Starboard tack — STAND ON</text>
+          <defs><marker id="arrI" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="currentColor"/></marker></defs>
+          <line x1="280" y1="150" x2="170" y2="60" stroke="#a3282d" stroke-width="3" marker-end="url(#arrI2)"/>
+          <defs><marker id="arrI2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#a3282d"/></marker></defs>
+          <text x="185" y="165" font-size="9" fill="#a3282d" font-weight="700">Port tack — GIVE WAY</text>
+          <circle cx="160" cy="65" r="4" fill="var(--ink)"/>
+          <text x="130" y="45" font-size="9" fill="var(--ink)">paths cross</text>
+        </svg>
+        <div class="cap">Crossing situation: the boat on port tack must give way to the boat on starboard tack.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Core right-of-way rules</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Opposite tacks</div><div class="fdesc">Port tack gives way to starboard tack.</div></div>
+          <div class="fact-item"><div class="fname">Same tack</div><div class="fdesc">The windward boat gives way to the leeward boat.</div></div>
+          <div class="fact-item"><div class="fname">Overtaking</div><div class="fdesc">The boat doing the overtaking gives way, regardless of tack.</div></div>
+          <div class="fact-item"><div class="fname">Power vs. sail</div><div class="fdesc">Power generally gives way to sail (exceptions: narrow channels, fishing vessels, vessels restricted in ability to maneuver).</div></div>
+        </div>
+        <p class="key-note"><strong>Stand-on boat:</strong> has the right of way — must hold course and speed. <strong>Give-way boat:</strong> must take early, obvious action (turn or slow) to avoid the stand-on boat.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example — identify from a picture</span>
+        <div class="prompt">Two sailboats are converging. Boat A has the wind on its starboard side with the boom out to port. Boat B has the wind on its port side with the boom out to starboard. Who stands on?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Boat A: wind on starboard side = starboard tack.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Boat B: wind on port side = port tack.</div></div>
+        <div class="answer-line">Boat A (starboard tack) is the stand-on vessel; Boat B (port tack) must give way.</div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secI" class="doneBox"> <label>Mark "Rules of the Road" complete</label></div>
+    </section>
+
+    <!-- ===================== J. MOORING AND DOCKING ===================== -->
+    <section class="topic" id="secJ">
+      <div class="topic-head">
+        <div class="topic-badge">J</div>
+        <h2>Mooring and Docking</h2>
+      </div>
+      <ul class="goals">
+        <li>Draw a simple boat with correct sail orientation</li>
+        <li>Explain why you approach from leeward</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 320 220" width="320" height="220">
+          <line x1="60" y1="20" x2="60" y2="55" stroke="var(--accent)" stroke-width="3" marker-end="url(#arrJ)"/>
+          <defs><marker id="arrJ" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--accent)"/></marker></defs>
+          <text x="30" y="18" font-size="9" fill="var(--accent)" font-weight="700">WIND</text>
+          <circle cx="150" cy="190" r="6" fill="var(--ink)"/>
+          <text x="160" y="195" font-size="9" fill="var(--ink)">dock / mooring</text>
+          <path d="M40,60 C60,110 110,150 150,185" fill="none" stroke="var(--good)" stroke-width="2.5" stroke-dasharray="0" marker-end="url(#arrJ2)"/>
+          <defs><marker id="arrJ2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--good)"/></marker></defs>
+          <text x="15" y="70" font-size="9" fill="var(--good)" font-weight="700">correct: approach from leeward, luffing up into wind</text>
+          <path d="M280,60 C240,100 190,140 155,180" fill="none" stroke="#a3282d" stroke-width="2.5" stroke-dasharray="5,4" marker-end="url(#arrJ3)"/>
+          <defs><marker id="arrJ3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#a3282d"/></marker></defs>
+          <text x="185" y="60" font-size="9" fill="#a3282d" font-weight="700">wrong: approach from windward</text>
+        </svg>
+        <div class="cap">Approach a dock or mooring heading up into the wind from leeward — the sails luff and lose power naturally, giving you a slow, controlled stop right at the target.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Why leeward, not windward</div>
+        <p style="margin:0;font-size:.9rem;">Approaching from leeward means you're heading toward the wind as you arrive — your sails luff, power bleeds off, and the boat naturally slows to a stop. Approaching from windward means the wind is pushing you <em>toward</em> the dock the whole way in, with no natural way to slow down — a recipe for a hard, uncontrolled arrival.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">Sketch a simple top-down boat approaching a mooring ball with "proper sail orientation."</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Draw the wind arrow pointing at the mooring ball.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Draw the boat's final approach heading directly into that wind arrow (bow pointed at the wind/mooring).</div></div>
+        <div class="step"><div class="sn">3</div><div class="stext">Draw the sail luffing (flapping, not full/curved) since the boat is head-to-wind and generating no power.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secJ" class="doneBox"> <label>Mark "Mooring &amp; Docking" complete</label></div>
+    </section>
+
+    <!-- ===================== K. UNDERSTANDING THE WIND ===================== -->
+    <section class="topic" id="secK">
+      <div class="topic-head">
+        <div class="topic-badge">K</div>
+        <h2>Understanding the Wind</h2>
+      </div>
+      <ul class="goals">
+        <li>True wind vs. apparent wind</li>
+        <li>The slot effect and reefing</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 300 200" width="300" height="200">
+          <line x1="140" y1="170" x2="140" y2="40" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#arrK)"/>
+          <text x="70" y="45" font-size="9" fill="var(--primary)" font-weight="700">true wind</text>
+          <line x1="140" y1="170" x2="240" y2="170" stroke="var(--good)" stroke-width="2.5" marker-end="url(#arrK)"/>
+          <text x="200" y="185" font-size="9" fill="var(--good)" font-weight="700">boat speed</text>
+          <line x1="140" y1="170" x2="240" y2="40" stroke="var(--accent)" stroke-width="3" marker-end="url(#arrK)"/>
+          <text x="245" y="60" font-size="9" fill="var(--accent)" font-weight="700">apparent wind</text>
+          <defs><marker id="arrK" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="currentColor"/></marker></defs>
+        </svg>
+        <div class="cap">Apparent wind = true wind + the "wind" created by your own boat speed, added as vectors. It shifts forward (and often strengthens) the faster you go.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Key ideas</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">True wind</div><div class="fdesc">What you'd feel standing still, e.g. on the dock.</div></div>
+          <div class="fact-item"><div class="fname">Apparent wind</div><div class="fdesc">What you actually feel on a moving boat — true wind combined with the wind of your own motion.</div></div>
+          <div class="fact-item"><div class="fname">Telltales</div><div class="fdesc">Read the apparent wind in real time to trim sails correctly (see Section A).</div></div>
+          <div class="fact-item"><div class="fname">Slot effect</div><div class="fdesc">The gap between the jib's leech and the main's luff accelerates air onto the leeward side of the mainsail, boosting its lift.</div></div>
+          <div class="fact-item"><div class="fname">Reefing</div><div class="fdesc">Reducing sail area in strong wind to cut heeling and keep the boat controllable and safe.</div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">True wind is 10 knots. You're sailing a beam reach at 6 knots. Will the wind on your face feel like it's coming from further forward or further aft than the true wind direction, and will it feel stronger or weaker than 10 knots?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Adding your own boat-speed "wind" to the true wind always shifts the apparent wind forward.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Combining the two vectors also makes the apparent wind stronger than the true wind alone.</div></div>
+        <div class="answer-line">It will feel like it's coming from further forward, and it will feel stronger than 10 knots.</div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secK" class="doneBox"> <label>Mark "Understanding the Wind" complete</label></div>
+    </section>
+
+    <!-- ===================== L. CREW OVERBOARD ===================== -->
+    <section class="topic" id="secL">
+      <div class="topic-head">
+        <div class="topic-badge">L</div>
+        <h2>Crew Overboard (COB)</h2>
+      </div>
+      <ul class="goals">
+        <li>Sketch a recovery path</li>
+        <li>Approach from leeward</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 320 220" width="320" height="220">
+          <circle cx="160" cy="120" r="5" fill="#a3282d"/>
+          <text x="170" y="124" font-size="9" fill="#a3282d" font-weight="700">COB</text>
+          <path d="M40,60 C90,50 130,70 160,120 C200,175 250,160 270,110 C285,75 230,50 190,80 C165,98 160,110 160,120" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#arrL)"/>
+          <defs><marker id="arrL" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--primary)"/></marker></defs>
+          <text x="30" y="48" font-size="9" fill="var(--muted)">start</text>
+          <text x="230" y="45" font-size="9" fill="var(--good)" font-weight="700">final approach from leeward</text>
+        </svg>
+        <div class="cap">A figure-eight recovery path: sail away, loop back, and make the final approach from leeward so the boat luffs to a stop right beside the victim.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Immediate steps</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">1. Shout &amp; point</div><div class="fdesc">Yell "Crew overboard!" and have one person point continuously at the victim.</div></div>
+          <div class="fact-item"><div class="fname">2. Throw flotation</div><div class="fdesc">Toss a cushion or throwable device toward the victim.</div></div>
+          <div class="fact-item"><div class="fname">3. Recovery maneuver</div><div class="fdesc">Sail a figure-eight (or quick-stop) path back to the victim.</div></div>
+          <div class="fact-item"><div class="fname">4. Approach from leeward</div><div class="fdesc">Head up into the wind on the final approach so the boat slows and stops beside them — same logic as docking.</div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">Why not approach the person in the water from windward (with the wind at your back)?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Approaching from windward means the wind keeps pushing your hull toward them with no easy way to stop, risking a collision.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Approaching from leeward lets you head into the wind, luff the sails, and glide to a controlled stop right next to them — the same reasoning as a dock or mooring approach.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secL" class="doneBox"> <label>Mark "Crew Overboard" complete</label></div>
+    </section>
+
+    <!-- ===================== M. ANCHORING ===================== -->
+    <section class="topic" id="secM">
+      <div class="topic-head">
+        <div class="topic-badge">M</div>
+        <h2>Anchoring</h2>
+      </div>
+      <ul class="goals">
+        <li>Understand scope and how to set an anchor</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 320 160" width="320" height="160">
+          <line x1="0" y1="90" x2="320" y2="90" stroke="var(--primary)" stroke-width="2" opacity=".5"/>
+          <text x="5" y="85" font-size="8" fill="var(--muted)">waterline</text>
+          <path d="M40,90 L40,20 L70,10" fill="none" stroke="var(--ink)" stroke-width="2"/>
+          <text x="10" y="15" font-size="8" fill="var(--muted)">freeboard</text>
+          <line x1="40" y1="20" x2="260" y2="150" stroke="var(--accent)" stroke-width="2.5"/>
+          <text x="140" y="95" font-size="9" fill="var(--accent)" font-weight="700">rode (scope)</text>
+          <path d="M255,140 l10,5 l-3,10 z" fill="var(--ink)"/>
+          <line x1="255" y1="150" x2="270" y2="150" stroke="var(--ink)" stroke-width="3"/>
+          <text x="230" y="158" font-size="8" fill="var(--muted)">anchor set flat on bottom</text>
+        </svg>
+        <div class="cap">Scope = ratio of rode (anchor line) length to total depth (water depth + freeboard). A low angle at the bottom lets the anchor dig in and hold.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Anchoring basics</div>
+        <p style="margin:0;font-size:.9rem;">Pick a sheltered spot with good holding bottom (sand/mud hold better than rock or grass). Let out enough <strong>scope</strong> — typically a <strong>5:1 to 7:1</strong> ratio of rode length to total depth (water depth + freeboard) — so the anchor pulls at a shallow angle and digs in instead of just skipping along the bottom. Back down gently under power or sail to set it, then check nearby landmarks to confirm you aren't dragging.</p>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">You're anchoring in 10 feet of water; your bow sits 3 feet above the waterline. Using 6:1 scope, how much rode should you let out?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Total depth = water depth + freeboard = 10 + 3 = 13 ft.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Rode length = scope ratio × total depth = 6 × 13.</div></div>
+        <div class="answer-line">Let out about 78 feet of rode.</div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secM" class="doneBox"> <label>Mark "Anchoring" complete</label></div>
+    </section>
+
+    <!-- ===================== N. WEATHER ===================== -->
+    <section class="topic" id="secN">
+      <div class="topic-head">
+        <div class="topic-badge">N</div>
+        <h2>Weather</h2>
+      </div>
+      <ul class="goals">
+        <li>Recognize storm warning signs</li>
+        <li>Prevent heat illness and hypothermia</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 260 150" width="260" height="150">
+          <path d="M60,90 a30,30 0 0,1 0,-60 a35,35 0 0,1 60,10 a25,25 0 0,1 5,49 z" fill="var(--muted)" opacity=".55"/>
+          <path d="M55,40 L110,20 L150,25 L140,15" fill="var(--muted)" opacity=".7"/>
+          <text x="30" y="115" font-size="9" fill="var(--muted)" font-weight="700">Cumulonimbus — anvil top, dark base</text>
+          <g stroke="var(--accent)" stroke-width="2">
+            <line x1="90" y1="95" x2="80" y2="120"/>
+            <line x1="105" y1="95" x2="95" y2="120"/>
+          </g>
+          <text x="60" y="135" font-size="8" fill="var(--accent)">lightning / squall risk below</text>
+        </svg>
+        <div class="cap">A tall, anvil-shaped, darkening cloud is your signal to head to shore before the storm arrives.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">Weather &amp; health hazards</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Cumulonimbus clouds</div><div class="fdesc">Tall, anvil-shaped storm clouds — warn of thunderstorms, lightning, and sudden gusts.</div></div>
+          <div class="fact-item"><div class="fname">Sunstroke &amp; hydration</div><div class="fdesc">Open water reflects extra UV; drink water regularly and watch for headache, dizziness, or hot/dry skin.</div></div>
+          <div class="fact-item"><div class="fname">Hypothermia</div><div class="fdesc">Dangerous drop in core body temperature — cold water/wind on wet skin is the biggest risk, even in "warm" weather. Watch for shivering and confusion.</div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">Mid-afternoon on a warm day, you notice a tall cloud on the horizon with a flat, spreading top and a dark, ominous base. What should you do?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">That description matches a <strong>cumulonimbus</strong> cloud — a thunderstorm cell.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">Head to shore immediately rather than waiting to see if it arrives — lightning and sudden gusts can hit before the storm visibly reaches you.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secN" class="doneBox"> <label>Mark "Weather" complete</label></div>
+    </section>
+
+    <!-- ===================== O. PFDs ===================== -->
+    <section class="topic" id="secO">
+      <div class="topic-head">
+        <div class="topic-badge">O</div>
+        <h2>PFDs (Personal Flotation Devices)</h2>
+      </div>
+      <ul class="goals">
+        <li>Explain what a PFD provides</li>
+        <li>Check a PFD for proper fit</li>
+      </ul>
+
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 220 170" width="220" height="170">
+          <circle cx="110" cy="35" r="18" fill="none" stroke="var(--muted)" stroke-width="2"/>
+          <path d="M75,60 Q110,50 145,60 L150,140 Q110,155 70,140 Z" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
+          <line x1="90" y1="60" x2="90" y2="140" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3,2"/>
+          <line x1="130" y1="60" x2="130" y2="140" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3,2"/>
+          <path d="M80,58 L75,45 M140,58 L145,45" stroke="var(--muted)" stroke-width="2" marker-end="url(#arrO)"/>
+          <defs><marker id="arrO" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--muted)"/></marker></defs>
+          <text x="15" y="165" font-size="8" fill="var(--muted)">lift test: shoulder straps shouldn't ride up over the ears</text>
+        </svg>
+        <div class="cap">Fit check: grab the shoulder straps and lift — a properly fitted PFD stays put instead of riding up.</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="ftitle">What a PFD does</div>
+        <div class="fact-grid">
+          <div class="fact-item"><div class="fname">Buoyancy</div><div class="fdesc">Keeps you afloat with minimal effort.</div></div>
+          <div class="fact-item"><div class="fname">Warmth</div><div class="fdesc">Adds insulation and keeps more of your body out of cold water, slowing hypothermia.</div></div>
+          <div class="fact-item"><div class="fname">Proper fit</div><div class="fdesc">Snug enough that it won't ride up over your chin or ears when you raise your arms; always zip/buckle it fully before getting underway.</div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <span class="etag">Example</span>
+        <div class="prompt">Before leaving the dock, how do you check that your PFD actually fits?</div>
+        <div class="step"><div class="sn">1</div><div class="stext">Zip/buckle it snugly, then have someone grab the shoulder straps and lift straight up.</div></div>
+        <div class="step"><div class="sn">2</div><div class="stext">If it rides up past your ears or chin, it's too loose — tighten the side straps and re-test.</div></div>
+      </div>
+
+      <div class="complete-row"><input type="checkbox" data-sec="secO" class="doneBox"> <label>Mark "PFDs" complete</label></div>
+    </section>
+
+    <!-- ===================== GLOSSARY ===================== -->
+    <section class="topic" id="glossary">
+      <div class="topic-head">
+        <div class="topic-badge">#</div>
+        <h2>Glossary — quick reference</h2>
+      </div>
+      <table class="ref-table">
+        <tr><th>Term</th><th>Meaning</th></tr>
+        <tr><td>Amidships</td><td>The middle of the boat, between bow and stern</td></tr>
+        <tr><td>Apparent wind</td><td>Wind felt on a moving boat — true wind + boat's own motion</td></tr>
+        <tr><td>Backstay</td><td>Standing rigging wire from masthead to stern, keeps mast from falling forward</td></tr>
+        <tr><td>Batten</td><td>Stiff slat in a pocket along the leech that supports roach</td></tr>
+        <tr><td>Beam</td><td>The boat's width at its widest point</td></tr>
+        <tr><td>Beam reach</td><td>Point of sail with wind directly on the side</td></tr>
+        <tr><td>Bermuda rig</td><td>Tall triangular sail rig used on most modern sailboats</td></tr>
+        <tr><td>Boom</td><td>Horizontal spar attached to the mast, holds the foot of the sail</td></tr>
+        <tr><td>Bowline</td><td>Knot that forms a fixed, non-slipping loop</td></tr>
+        <tr><td>Bow</td><td>The front of the boat</td></tr>
+        <tr><td>Bridle</td><td>Line/wire that spreads a load between two attachment points</td></tr>
+        <tr><td>Broad reach</td><td>Point of sail between beam reach and a run</td></tr>
+        <tr><td>Catboat</td><td>Single mast set forward, one sail, no jib</td></tr>
+        <tr><td>Centerboard</td><td>Underwater foil that pivots up on a hinge</td></tr>
+        <tr><td>Clew</td><td>Bottom-aft corner of a sail, where the sheet attaches</td></tr>
+        <tr><td>Close hauled</td><td>Sailing as close to the wind as possible while still powered</td></tr>
+        <tr><td>Close reach</td><td>Point of sail between close hauled and beam reach</td></tr>
+        <tr><td>Cockpit</td><td>Area where the crew sits and steers</td></tr>
+        <tr><td>Crab claw rig</td><td>Two curved spars forming a crescent-shaped sail</td></tr>
+        <tr><td>Cunningham</td><td>Running rigging control that tensions the luff</td></tr>
+        <tr><td>Daggerboard</td><td>Underwater foil that slides straight up and down</td></tr>
+        <tr><td>Fore / aft</td><td>Toward the bow / toward the stern</td></tr>
+        <tr><td>Forestay</td><td>Standing rigging wire from bow to masthead</td></tr>
+        <tr><td>Foot</td><td>Bottom edge of a sail</td></tr>
+        <tr><td>Give-way vessel</td><td>Boat that must take action to avoid the stand-on vessel</td></tr>
+        <tr><td>Gudgeons</td><td>Sockets on the hull that the rudder's pintles drop into</td></tr>
+        <tr><td>Halyard</td><td>Line used to raise/lower a sail</td></tr>
+        <tr><td>Head</td><td>Top corner of a sail</td></tr>
+        <tr><td>Heading up</td><td>Turning the bow closer to the wind</td></tr>
+        <tr><td>Heeling</td><td>The boat leaning/tipping from wind pressure (roll)</td></tr>
+        <tr><td>Hiking out</td><td>Crew leaning out over the rail to balance heeling</td></tr>
+        <tr><td>Hypothermia</td><td>Dangerous drop in core body temperature</td></tr>
+        <tr><td>In irons</td><td>Stuck head-to-wind in the no-sail zone</td></tr>
+        <tr><td>Jib sheet</td><td>Line controlling the jib's trim</td></tr>
+        <tr><td>Jibing (gybing)</td><td>Turning the stern through the wind</td></tr>
+        <tr><td>Keel</td><td>Fixed, ballasted underwater fin</td></tr>
+        <tr><td>Lateen rig</td><td>Triangular sail on a long angled yard</td></tr>
+        <tr><td>Leech</td><td>Trailing (back) edge of a sail</td></tr>
+        <tr><td>Leech line</td><td>Small line inside the leech that reduces flutter</td></tr>
+        <tr><td>Leeward</td><td>The side/direction the wind blows toward</td></tr>
+        <tr><td>Luff</td><td>Forward edge of a sail (also: when a sail flaps and loses power)</td></tr>
+        <tr><td>Mainsheet</td><td>Line controlling the mainsail's boom angle</td></tr>
+        <tr><td>Mast</td><td>Vertical spar that supports the sails</td></tr>
+        <tr><td>Masthead fly</td><td>Wind vane at the top of the mast</td></tr>
+        <tr><td>Midship</td><td>The center of the boat</td></tr>
+        <tr><td>No-sail zone</td><td>~45° cone into the wind where sails can't generate power</td></tr>
+        <tr><td>Outhaul</td><td>Running rigging control that tensions the foot</td></tr>
+        <tr><td>Painter</td><td>Line at the bow used for towing or tying up</td></tr>
+        <tr><td>Pintles</td><td>Pins on the rudder that fit into gudgeons</td></tr>
+        <tr><td>Pitch</td><td>Bow/stern bobbing motion from waves and weight balance</td></tr>
+        <tr><td>Port</td><td>Left side of the boat, facing forward</td></tr>
+        <tr><td>Port tack / starboard tack</td><td>Named for which side the wind is hitting</td></tr>
+        <tr><td>Reefing</td><td>Reducing sail area in strong wind</td></tr>
+        <tr><td>Roach</td><td>Sail area extending past a straight line from head to clew</td></tr>
+        <tr><td>Roll</td><td>Side-to-side tipping motion (heeling) from wind on the sail</td></tr>
+        <tr><td>Rudder</td><td>Underwater blade that steers the boat</td></tr>
+        <tr><td>Run</td><td>Point of sail with the wind directly behind</td></tr>
+        <tr><td>Scope</td><td>Ratio of anchor rode length to total depth</td></tr>
+        <tr><td>Shrouds</td><td>Standing rigging wires supporting the mast side to side</td></tr>
+        <tr><td>Slot effect</td><td>Accelerated airflow between the jib and mainsail</td></tr>
+        <tr><td>Sloop</td><td>Single mast set aft of a catboat's, with mainsail + jib</td></tr>
+        <tr><td>Spar</td><td>General term for a pole (mast, boom, etc.)</td></tr>
+        <tr><td>Spreaders</td><td>Struts that angle the shrouds out for support</td></tr>
+        <tr><td>Square rig</td><td>Rectangular sails on horizontal yards</td></tr>
+        <tr><td>Stand-on vessel</td><td>Boat with right of way — must hold course and speed</td></tr>
+        <tr><td>Starboard</td><td>Right side of the boat, facing forward</td></tr>
+        <tr><td>Stern</td><td>The back of the boat</td></tr>
+        <tr><td>Stopper knot</td><td>Knot tied at a line's end to keep it from running out</td></tr>
+        <tr><td>Tack (sail part)</td><td>Bottom-forward corner of a sail</td></tr>
+        <tr><td>Tacking</td><td>Turning the bow through the wind</td></tr>
+        <tr><td>Telltales</td><td>Ribbons on a sail that show airflow for trimming</td></tr>
+        <tr><td>Tiller</td><td>Arm connected to the rudder, used to steer</td></tr>
+        <tr><td>True wind</td><td>Wind measured while standing still</td></tr>
+        <tr><td>Weather helm</td><td>Boat's tendency to turn into the wind when overpowered</td></tr>
+        <tr><td>Windward</td><td>The side/direction the wind comes from</td></tr>
+      </table>
+    </section>
+
+  </main>
+</div>
+
+<footer>Sailing Test Review Study Guide — based on the SEAS course review sheet (Mr. JJ)</footer>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const sidebar = document.getElementById('sidebar');
+  menuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
+  sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => sidebar.classList.remove('open')));
+
+  const navLinks = Array.from(document.querySelectorAll('.navlist a[data-sec], .navlist a[href="#home"], .navlist a[href="#glossary"]'));
+  const sections = Array.from(document.querySelectorAll('main section'));
+  const linkFor = id => document.querySelector('.navlist a[href="#' + id + '"]');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = linkFor(entry.target.id);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  sections.forEach(s => io.observe(s));
+
+  const SECS = ['secA','secB','secC','secD','secE','secF','secG','secH','secI','secJ','secK','secL','secM','secN','secO'];
+  const STORAGE_KEY = 'sailingReviewProgress';
+  function loadProgress(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function saveProgress(p){ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
+  function renderProgress(){
+    const p = loadProgress();
+    const doneCount = SECS.filter(s => p[s]).length;
+    document.getElementById('progressFill').style.width = (doneCount/SECS.length*100) + '%';
+    document.getElementById('progressCount').textContent = doneCount + ' of ' + SECS.length + ' sections complete';
+    SECS.forEach(s => {
+      const link = document.querySelector('.navlist a[data-sec="'+s+'"]');
+      const box = document.querySelector('.doneBox[data-sec="'+s+'"]');
+      if (link) link.classList.toggle('done', !!p[s]);
+      if (box) box.checked = !!p[s];
+    });
+  }
+  document.querySelectorAll('.doneBox').forEach(box => {
+    box.addEventListener('change', () => {
+      const p = loadProgress();
+      p[box.dataset.sec] = box.checked;
+      saveProgress(p);
+      renderProgress();
+    });
+  });
+  renderProgress();
+</script>
+
+</body>
+</html>
